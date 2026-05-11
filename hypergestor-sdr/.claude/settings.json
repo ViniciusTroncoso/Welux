@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl *ia.autopop360.app.br*)",
+      "Bash(curl *api.autopop360.com*)",
+      "Bash(python3 provisioning/*)",
+      "Bash(bash provisioning/shared/test-hg-agent.sh *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [{ "type": "command", "command": "bash .claude/hooks/protect-envs.sh" }]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [{ "type": "command", "command": "bash .claude/hooks/snapshot-system-prompt.sh" }]
+      }
+    ]
+  }
+}
