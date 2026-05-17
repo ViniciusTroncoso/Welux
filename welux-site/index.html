@@ -426,7 +426,7 @@
   <!-- ===================== 6 · DIVISOR full-bleed (M2) ===================== -->
   <section class="fb" data-nav="dark">
     <div class="media">
-      <video class="media-el" autoplay muted loop playsinline preload="metadata">
+      <video class="media-el" autoplay muted loop playsinline preload="auto">
         <source src="assets/m2.mp4" type="video/mp4" />
       </video>
     </div>
@@ -865,10 +865,28 @@
       sampleLogo(build);
     }
 
+    /* ---- autoplay forçado — iOS Safari exige .play() explícito ---- */
+    function initVideos(){
+      var vids = document.querySelectorAll('video[autoplay]');
+      function tryPlay(v){
+        v.muted = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function(){});
+      }
+      var vio = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) tryPlay(e.target);
+          else e.target.pause();
+        });
+      }, { threshold: 0.01 });
+      vids.forEach(function(v){ v.load(); vio.observe(v); });
+    }
+
     function boot(){
       initNav();
       try{ initWebGL(); }catch(e){ console.warn('WebGL off:', e); }
       initScroll();
+      initVideos();
       if (window.ScrollTrigger) ScrollTrigger.refresh();
     }
     if (document.readyState === 'complete') boot();
