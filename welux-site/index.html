@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welux — Sites médicos de alta conversão</title>
+  <meta name="description" content="Welux é a software house que constrói sites premium para clínicas e consultórios médicos captarem mais pacientes e aumentarem o faturamento." />
+  <meta name="theme-color" content="#0B0B0B" />
+  <meta property="og:title" content="Welux — Sites médicos de alta conversão" />
+  <meta property="og:description" content="Construímos a presença digital que faz o paciente chegar decidido a fechar consulta." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <link rel="icon" href="assets/welux-logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================================
+       WELUX — tokens (luxo preto & branco · padrão SHA)
+       ============================================================= */
+    :root{
+      --black:#0B0B0B;
+      --surface:#141414;
+      --white:#F4F2EE;
+      --muted:#8F8C85;
+      --muted-dark:#6E6B64;
+      --line:#2A2A28;
+      --line-light:#CFCBC2;
+      --ease:cubic-bezier(.22,.61,.36,1);
+      --pad:clamp(1.4rem,5.5vw,2.4rem);
+      --maxw:1280px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{-webkit-text-size-adjust:100%;}
+    body{
+      background:var(--black);
+      color:var(--white);
+      font-family:'Manrope',sans-serif;
+      font-weight:400;
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    img,svg,video{display:block;max-width:100%;}
+    a{color:inherit;text-decoration:none;}
+    em{font-style:normal;color:var(--muted);}
+
+    /* ---------- tipografia ---------- */
+    .display{font-weight:300;line-height:1.1;letter-spacing:-.02em;}
+    h1,h2,h3{font-weight:300;}
+    .eyebrow{
+      font-size:.64rem;font-weight:600;letter-spacing:.32em;
+      text-transform:uppercase;color:var(--muted);
+    }
+
+    /* ---------- layout base ---------- */
+    .wrap{
+      width:100%;max-width:var(--maxw);margin:0 auto;
+      padding-left:var(--pad);padding-right:var(--pad);
+    }
+    section{position:relative;}
+    .band{padding-top:clamp(5rem,17vw,9rem);padding-bottom:clamp(5rem,17vw,9rem);}
+    .band-light{background:var(--white);color:var(--black);}
+    .band-light .eyebrow{color:var(--muted-dark);}
+    .band-light em{color:var(--muted-dark);}
+    .hairline{height:1px;background:var(--line);border:0;}
+
+    /* ---------- NAV (troca de cor por seção) ---------- */
+    .nav{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1rem var(--pad);
+      color:var(--white);
+      transition:color .45s var(--ease),background .45s var(--ease);
+    }
+    .nav.scrolled{background:rgba(11,11,11,.82);backdrop-filter:blur(10px);}
+    .nav.on-light{color:var(--black);}
+    .nav.on-light.scrolled{background:rgba(244,242,238,.85);}
+    .nav-logo{display:flex;align-items:center;gap:.6rem;color:inherit;}
+    .nav-logo svg{width:30px;height:30px;color:inherit;}
+    .nav-logo .wm{
+      font-size:.9rem;font-weight:600;letter-spacing:.3em;
+      text-transform:uppercase;padding-top:2px;
+    }
+    .nav-cta{
+      font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+      color:inherit;padding:.65rem 1rem;
+      border:1px solid currentColor;
+      transition:background .4s var(--ease),color .4s var(--ease);
+    }
+    .nav.on-light .nav-cta:hover{background:var(--black);color:var(--white);}
+    .nav:not(.on-light) .nav-cta:hover{background:var(--white);color:var(--black);}
+
+    /* ---------- topbar ---------- */
+    .topbar{
+      position:relative;z-index:1;text-align:center;
+      padding:.8rem var(--pad);border-bottom:1px solid var(--line);
+      font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+    }
+    .topbar b{color:var(--white);font-weight:600;}
+
+    /* ---------- botões ---------- */
+    .btn{
+      display:inline-block;font-size:.72rem;font-weight:600;
+      letter-spacing:.2em;text-transform:uppercase;
+      padding:1.15rem 2.2rem;border:1px solid var(--white);
+      transition:background .45s var(--ease),color .45s var(--ease);cursor:pointer;
+    }
+    .btn-solid{background:var(--white);color:var(--black);}
+    .btn-solid:hover{background:transparent;color:var(--white);}
+    .btn-ghost{background:transparent;color:var(--white);}
+    .btn-ghost:hover{background:var(--white);color:var(--black);}
+    .band-light .btn{border-color:var(--black);}
+    .band-light .btn-solid{background:var(--black);color:var(--white);}
+    .band-light .btn-solid:hover{background:transparent;color:var(--black);}
+
+    /* ---------- HERO ---------- */
+    .hero{
+      position:relative;min-height:100svh;
+      display:flex;flex-direction:column;overflow:hidden;
+    }
+    .hero .media{position:absolute;inset:0;z-index:0;}
+    .hero .scrim{
+      position:absolute;inset:0;z-index:1;
+      background:linear-gradient(to bottom,rgba(11,11,11,.55),rgba(11,11,11,.35) 45%,rgba(11,11,11,.92));
+    }
+    #bg{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none;}
+    .hero-stage{flex:0 0 auto;height:40vh;min-height:220px;}
+    .hero-inner{
+      position:relative;z-index:3;
+      flex:1 1 auto;display:flex;flex-direction:column;
+      justify-content:center;align-items:center;text-align:center;
+      padding:0 var(--pad) clamp(2.5rem,9vw,4rem);
+    }
+    .hero .eyebrow{margin-bottom:1.4rem;}
+    .hero h1{
+      font-size:clamp(2.4rem,9.5vw,4.4rem);
+      margin-bottom:1.4rem;
+    }
+    .hero p.lead{
+      font-size:1rem;color:var(--muted);max-width:34ch;
+      margin:0 auto 2.2rem;line-height:1.7;
+    }
+    .scroll-hint{
+      margin-top:2.4rem;font-size:.54rem;letter-spacing:.26em;
+      text-transform:uppercase;color:var(--muted);
+      display:flex;flex-direction:column;align-items:center;gap:.7rem;
+    }
+    .scroll-hint .line{width:1px;height:34px;background:var(--line);position:relative;overflow:hidden;}
+    .scroll-hint .line::after{
+      content:"";position:absolute;top:-60%;left:0;width:100%;height:60%;
+      background:var(--white);animation:trail 2.4s var(--ease) infinite;
+    }
+    @keyframes trail{to{top:100%;}}
+
+    /* ---------- SLOT de mídia (placeholder p/ gerar asset) ---------- */
+    .slot{
+      width:100%;height:100%;min-height:inherit;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:.8rem;text-align:center;padding:2rem;
+      background:
+        repeating-linear-gradient(135deg,#101010,#101010 16px,#151514 16px,#151514 32px);
+      border:1px solid var(--line);
+    }
+    .slot .tag{
+      font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;
+      color:var(--white);border:1px solid var(--line);padding:.4rem .7rem;
+    }
+    .slot .desc{font-size:.8rem;color:var(--muted);max-width:32ch;line-height:1.55;}
+    .slot .ar{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-dark);}
+
+    /* ---------- seção: cabeçalho ---------- */
+    .sec-head{margin-bottom:clamp(2.6rem,8vw,4rem);}
+    .sec-head .eyebrow{display:block;margin-bottom:1.1rem;}
+    .sec-title{font-size:clamp(2rem,7.5vw,3.4rem);}
+
+    /* ---------- STATEMENT ---------- */
+    .statement{
+      font-size:clamp(2rem,8.4vw,4rem);
+      font-weight:300;line-height:1.16;letter-spacing:-.02em;
+      max-width:18ch;
+    }
+    .statement-sub{
+      margin-top:1.8rem;font-size:1rem;color:var(--muted-dark);
+      max-width:42ch;line-height:1.7;
+    }
+
+    /* ---------- cards (desejos) ---------- */
+    .grid{display:grid;gap:1px;background:var(--line-light);}
+    .grid-2{grid-template-columns:1fr;}
+    .card{background:var(--white);padding:clamp(1.7rem,6.5vw,2.6rem);}
+    .card .big{font-size:clamp(1.45rem,5.6vw,1.95rem);line-height:1.22;font-weight:300;letter-spacing:-.012em;}
+
+    /* ---------- PAS ---------- */
+    .pas{display:flex;flex-direction:column;gap:1px;background:var(--line);}
+    .pas .row{background:var(--black);padding:clamp(1.7rem,6vw,2.3rem);}
+    .pas .row p{font-size:1.05rem;line-height:1.6;}
+    .pas .se{
+      display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.2em;
+      text-transform:uppercase;color:var(--muted);
+      transform:translateY(-2px);padding-right:.55rem;
+    }
+
+    /* ---------- stack (sintomas / diferenciais) ---------- */
+    .stack{display:flex;flex-direction:column;}
+    .stack .item{
+      padding:1.9rem 0;border-top:1px solid var(--line);
+      display:flex;gap:1.1rem;font-size:1.02rem;line-height:1.6;
+    }
+    .stack .item:last-child{border-bottom:1px solid var(--line);}
+    .band-light .stack .item{border-color:var(--line-light);}
+    .stack .idx{
+      font-size:.74rem;font-weight:700;letter-spacing:.05em;
+      color:var(--muted);flex:0 0 auto;min-width:2.6ch;padding-top:.25rem;
+    }
+    .stack .neg{
+      display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.2em;
+      text-transform:uppercase;transform:translateY(-2px);padding-right:.5rem;
+    }
+    .stack strong{font-weight:600;}
+
+    /* ---------- FULL-BLEED (divisor + cases · padrão SHA) ---------- */
+    .fb{
+      position:relative;min-height:100svh;overflow:hidden;
+      display:flex;flex-direction:column;justify-content:flex-end;
+    }
+    .fb .media{position:absolute;inset:0;z-index:0;}
+    .fb .scrim{
+      position:absolute;inset:0;z-index:1;
+      background:linear-gradient(to top,rgba(11,11,11,.92),rgba(11,11,11,.15) 55%,rgba(11,11,11,.4));
+    }
+    .fb .overlay{
+      position:relative;z-index:2;
+      padding:var(--pad);padding-bottom:clamp(3rem,11vw,5.5rem);
+    }
+    .fb .label{display:block;margin-bottom:.9rem;}
+    .fb .fb-title{
+      font-size:clamp(2rem,9vw,3.6rem);font-weight:300;
+      letter-spacing:-.02em;line-height:1.08;
+    }
+    .fb .metric{
+      margin-top:1rem;font-size:.95rem;color:var(--white);
+      display:flex;align-items:baseline;gap:.5rem;
+    }
+    .fb .metric b{font-size:1.6rem;font-weight:600;}
+    .fb .arrow{
+      margin-top:1.6rem;width:46px;height:46px;border:1px solid var(--white);
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:1rem;
+    }
+
+    /* ---------- método ---------- */
+    .step{
+      padding:2.4rem 0;border-top:1px solid var(--line);
+      display:flex;gap:1.3rem;
+    }
+    .step:last-child{border-bottom:1px solid var(--line);}
+    .step .num{
+      font-size:clamp(1.9rem,7.5vw,2.8rem);font-weight:200;line-height:1;
+      color:var(--muted);flex:0 0 auto;min-width:2.6ch;
+      transition:color .5s var(--ease);
+    }
+    .step.active .num{color:var(--white);}
+    .step h3{font-size:clamp(1.25rem,5vw,1.7rem);font-weight:400;margin-bottom:.7rem;letter-spacing:-.01em;}
+    .step p{font-size:.98rem;color:var(--muted);line-height:1.65;}
+    .step p strong{color:var(--white);font-weight:600;}
+
+    /* ---------- depoimentos ---------- */
+    .quotes{display:flex;flex-direction:column;gap:1.4rem;}
+    .quote-card{border:1px solid var(--line-light);padding:clamp(1.8rem,6vw,2.4rem);}
+    .quote-card .ph{
+      width:54px;height:54px;border-radius:50%;border:1px solid var(--line-light);
+      display:flex;align-items:center;justify-content:center;
+      font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--muted-dark);text-align:center;margin-bottom:1.3rem;
+    }
+    .quote-card p.q{font-size:1.05rem;line-height:1.55;margin-bottom:1.4rem;font-weight:300;}
+    .quote-card .who{font-size:.9rem;font-weight:600;}
+    .quote-card .role{font-size:.78rem;color:var(--muted-dark);}
+
+    /* ---------- formulário ---------- */
+    .diag-grid{display:flex;flex-direction:column;gap:2.6rem;}
+    .diag-list{list-style:none;margin-top:1.7rem;display:flex;flex-direction:column;gap:.95rem;}
+    .diag-list li{display:flex;gap:.85rem;font-size:.95rem;color:var(--muted);}
+    .diag-list li::before{content:"";flex:0 0 auto;width:5px;height:5px;margin-top:.62rem;background:var(--white);border-radius:50%;}
+    .form{border:1px solid var(--line);padding:clamp(1.6rem,6vw,2.4rem);display:flex;flex-direction:column;gap:1.4rem;}
+    .field label{display:block;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+    .field input,.field select{
+      width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);
+      color:var(--white);font-family:inherit;font-size:.95rem;padding:.7rem 0;outline:none;
+      transition:border-color .4s var(--ease);
+    }
+    .field input::placeholder{color:var(--muted-dark);}
+    .field input:focus,.field select:focus{border-color:var(--white);}
+    .field select{cursor:pointer;}
+    .field select option{background:var(--surface);color:var(--white);}
+
+    /* ---------- CTA final ---------- */
+    .final{text-align:center;}
+    .final h2{font-size:clamp(2.1rem,8.5vw,3.6rem);font-weight:300;line-height:1.14;letter-spacing:-.02em;margin-bottom:2rem;}
+
+    /* ---------- footer ---------- */
+    .footer{border-top:1px solid var(--line);padding:3.4rem var(--pad);text-align:center;}
+    .footer svg{width:30px;height:30px;margin:0 auto 1rem;color:var(--white);}
+    .footer .wm{font-size:.8rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;margin-bottom:.8rem;}
+    .footer .meta{font-size:.78rem;color:var(--muted);margin-bottom:.4rem;}
+    .footer .copy{font-size:.66rem;color:var(--muted-dark);}
+
+    /* ---------- animação ---------- */
+    .reveal{opacity:0;transform:translateY(34px);}
+    .reveal.in{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1s var(--ease);}
+    .center{text-align:center;}
+    .mt{margin-top:clamp(2.4rem,8vw,3.4rem);}
+
+    /* ---------- DESKTOP (passe preliminar — refinar depois) ---------- */
+    @media (min-width:760px){
+      .grid-2{grid-template-columns:1fr 1fr;}
+      .diag-grid{flex-direction:row;gap:3.5rem;}
+      .diag-grid>*{flex:1;}
+      .quotes{flex-direction:row;}
+      .quotes>*{flex:1;}
+      .hero p.lead{font-size:1.15rem;max-width:48ch;}
+      .fb .overlay,.statement,.sec-head{max-width:var(--maxw);margin-left:auto;margin-right:auto;width:100%;}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .reveal{opacity:1;transform:none;}
+      .scroll-hint .line::after{animation:none;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG fonte do monograma WL (partículas + nav + footer) -->
+  <svg id="wl-src" viewBox="0 0 2048 2048" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <path id="wl-path" fill="currentColor" fill-rule="evenodd" d="M 249.750 633.744 C 242.188 633.916, 236 634.255, 236 634.497 C 236 634.740, 238.700 641.041, 242 648.500 C 245.300 655.959, 248 662.251, 248 662.482 C 248 662.712, 250.631 668.661, 253.847 675.701 C 257.063 682.740, 260.931 691.650, 262.444 695.500 C 263.957 699.350, 268.345 709.700, 272.195 718.500 C 287.765 754.085, 308.706 802.781, 328.530 849.500 C 332.497 858.850, 345.984 890.125, 358.500 919 C 371.016 947.875, 385.432 981.400, 390.534 993.500 C 395.637 1005.600, 403.165 1023.150, 407.264 1032.500 C 411.363 1041.850, 420.456 1063, 427.471 1079.500 C 434.486 1096, 442.700 1115.119, 445.724 1121.988 C 448.748 1128.856, 453.383 1139.656, 456.023 1145.988 C 458.663 1152.319, 465.399 1168.075, 470.992 1181 C 476.585 1193.925, 491.877 1229.475, 504.975 1260 C 518.073 1290.525, 536.442 1333.275, 545.796 1355 C 555.151 1376.725, 577.419 1428.475, 595.282 1470 C 625.466 1540.168, 638.044 1568.974, 642.552 1578.255 L 644.375 1582.011 733.832 1581.755 L 823.289 1581.500 832.207 1561 C 840.773 1541.307, 851.851 1515.859, 885.316 1439 C 893.817 1419.475, 904.034 1395.963, 908.021 1386.750 C 912.009 1377.537, 915.591 1370, 915.982 1370 C 916.630 1370, 925.385 1387.863, 931.867 1402.411 C 940.859 1422.593, 962.660 1467.825, 963.475 1467.989 C 964.012 1468.098, 967.888 1459.932, 972.089 1449.843 C 981.128 1428.135, 1016.314 1345.030, 1037.977 1294.224 L 1046.196 1274.949 1040.660 1263.224 C 1034.515 1250.210, 1024.990 1229.507, 1012.915 1202.920 L 1004.931 1185.340 1014.585 1163.420 C 1019.895 1151.364, 1027.976 1132.725, 1032.542 1122 C 1037.109 1111.275, 1044.959 1093.050, 1049.987 1081.500 C 1055.015 1069.950, 1065.813 1044.975, 1073.984 1026 C 1082.154 1007.025, 1097.022 972.600, 1107.024 949.500 C 1117.025 926.400, 1127.451 902.100, 1130.192 895.500 C 1132.933 888.900, 1139.468 873.825, 1144.714 862 C 1149.960 850.175, 1157.061 833.750, 1160.494 825.500 C 1163.927 817.250, 1171.336 799.925, 1176.958 787 C 1182.579 774.075, 1190.014 756.750, 1193.478 748.500 C 1196.942 740.250, 1204.391 722.925, 1210.032 710 C 1215.672 697.075, 1222.890 680.200, 1226.071 672.500 C 1229.252 664.800, 1234.326 653.100, 1237.347 646.500 L 1242.839 634.500 1237.170 633.859 C 1229.203 632.957, 1080.743 632.869, 1079.394 633.765 C 1078.785 634.169, 1074.796 642.600, 1070.529 652.500 C 1066.263 662.400, 1056.797 684, 1049.494 700.500 C 1042.191 717, 1032.823 738.375, 1028.676 748 C 1024.529 757.625, 1018.242 772.025, 1014.707 780 C 1004.424 803.193, 979.856 858.212, 972.733 874 C 966.662 887.455, 948.996 927.470, 927.128 977.298 C 922.107 988.737, 918 998.525, 918 999.048 C 918 1001.505, 916.298 999.505, 914.341 994.748 C 913.154 991.862, 906.248 976, 898.996 959.500 C 891.743 943, 881.408 919.375, 876.027 907 C 870.647 894.625, 863.092 877.525, 859.238 869 C 855.384 860.475, 848.316 844.500, 843.531 833.500 C 838.746 822.500, 833.341 810.125, 831.518 806 C 817.207 773.607, 776.195 679.264, 770.659 666 C 768.708 661.325, 764.675 652.100, 761.697 645.500 L 756.283 633.500 675.225 633.500 C 630.643 633.500, 593.881 633.785, 593.533 634.134 C 592.853 634.814, 596.569 644.064, 607.740 669.500 C 611.605 678.300, 622.526 703.725, 632.010 726 C 641.493 748.275, 654.316 778.200, 660.505 792.500 C 666.694 806.800, 675.687 827.725, 680.489 839 C 685.291 850.275, 693.398 869.175, 698.504 881 C 711.643 911.426, 736.966 970.419, 745.507 990.500 C 749.484 999.850, 755.540 1013.800, 758.965 1021.500 C 762.390 1029.200, 768.250 1042.700, 771.987 1051.500 C 781.389 1073.644, 790.530 1094.631, 798.991 1113.500 C 802.936 1122.300, 808.114 1134.225, 810.497 1140 C 812.880 1145.775, 818.693 1159.216, 823.415 1169.870 C 828.137 1180.523, 832 1189.821, 832 1190.533 C 832 1191.244, 827.011 1203.453, 820.913 1217.663 C 814.816 1231.873, 808.785 1246.200, 807.513 1249.500 C 799.940 1269.134, 740.799 1405.932, 739.866 1405.973 C 739.243 1406, 638.063 1178.766, 615.649 1127 C 609.338 1112.425, 596.898 1084.075, 588.004 1064 C 579.110 1043.925, 567.201 1016.925, 561.539 1004 C 555.878 991.075, 548.306 973.975, 544.713 966 C 535.106 944.677, 522.849 916.909, 518.008 905.500 C 515.674 900, 510.720 888.750, 506.998 880.500 C 503.276 872.250, 496.320 856.500, 491.540 845.500 C 486.760 834.500, 478.193 814.925, 472.501 802 C 466.810 789.075, 458.117 769.275, 453.183 758 C 448.249 746.725, 436.686 720.400, 427.486 699.500 C 418.287 678.600, 407.992 655.200, 404.609 647.500 L 398.458 633.500 330.979 633.466 C 293.866 633.447, 257.313 633.572, 249.750 633.744 M 1434.338 634.211 C 1433.272 635.627, 1426.068 652.137, 1405.633 700 C 1393.265 728.969, 1387.409 742.516, 1363.270 798 C 1358.604 808.725, 1352.410 823.125, 1349.505 830 C 1346.601 836.875, 1340.301 851.500, 1335.505 862.500 C 1330.710 873.500, 1323.671 889.925, 1319.863 899 C 1316.055 908.075, 1311.549 918.650, 1309.849 922.500 C 1307.043 928.856, 1294.292 958.289, 1268.259 1018.500 C 1263.028 1030.600, 1253.666 1052.425, 1247.455 1067 C 1241.244 1081.575, 1221.448 1127.700, 1203.463 1169.500 C 1185.478 1211.300, 1164.051 1261.250, 1155.846 1280.500 C 1147.642 1299.750, 1138.711 1320.450, 1136 1326.500 C 1133.289 1332.550, 1125.018 1351.900, 1117.621 1369.500 C 1110.223 1387.100, 1099.359 1412.525, 1093.478 1426 C 1077.201 1463.296, 1032.015 1568.937, 1027.286 1580.752 C 1026.885 1581.753, 1084.253 1581.953, 1313.580 1581.752 L 1600.375 1581.500 1604.140 1572 C 1612.572 1550.722, 1660.330 1427.374, 1660.765 1425.750 C 1661.210 1424.088, 1651.240 1424, 1461.617 1424 C 1351.827 1424, 1262 1423.734, 1262 1423.408 C 1262 1423.082, 1271.970 1399.570, 1284.155 1371.158 C 1296.341 1342.746, 1312.029 1306, 1319.018 1289.500 C 1326.006 1273, 1336.009 1249.600, 1341.245 1237.500 C 1346.481 1225.400, 1358.522 1197.275, 1368.003 1175 C 1377.484 1152.725, 1392.351 1117.850, 1401.039 1097.500 C 1409.728 1077.150, 1418.504 1056.450, 1420.541 1051.500 C 1422.578 1046.550, 1429.101 1031.475, 1435.037 1018 C 1440.973 1004.525, 1447.620 989, 1449.809 983.500 C 1451.997 978, 1459.169 961.125, 1465.748 946 C 1472.326 930.875, 1481.881 908.600, 1486.981 896.500 C 1492.081 884.400, 1499.752 866.400, 1504.028 856.500 C 1508.304 846.600, 1514.394 832.200, 1517.560 824.500 C 1520.727 816.800, 1527.114 801.950, 1531.753 791.500 C 1536.392 781.050, 1541.927 768.151, 1544.052 762.835 C 1547.808 753.441, 1567.912 706.087, 1586.225 663.500 C 1598.267 635.494, 1598.424 635.091, 1597.573 634.239 C 1597.167 633.833, 1560.491 633.370, 1516.072 633.211 C 1451.071 632.979, 1435.120 633.174, 1434.338 634.211"/>
+  </svg>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav" id="nav">
+    <a href="#top" class="nav-logo" aria-label="Welux">
+      <svg viewBox="0 0 2048 2048" aria-hidden="true"><use href="#wl-path"/></svg>
+      <span class="wm">Welux</span>
+    </a>
+    <a href="#diagnostico" class="nav-cta">Diagnóstico</a>
+  </nav>
+
+  <!-- ===================== 1 · TOPBAR ===================== -->
+  <div class="topbar" id="top" data-nav="dark">
+    Para clínicas e consultórios médicos que cobram <b>R$ 400+ por consulta</b> e querem captar mais pacientes.
+  </div>
+
+  <!-- ===================== 2 · HERO ===================== -->
+  <header class="hero" id="hero" data-nav="dark">
+    <!-- M1 · vídeo hero (full-bleed, atrás das partículas) -->
+    <div class="media">
+      <div class="slot">
+        <span class="tag">M1 · Vídeo Hero</span>
+        <span class="desc">Clipe B&amp;W cinematográfico — consultório de luxo, luz lenta. Sem áudio, loop.</span>
+        <span class="ar">9:16 mobile · 16:9 desktop</span>
+      </div>
+    </div>
+    <div class="scrim"></div>
+    <canvas id="bg"></canvas>
+    <div class="hero-stage" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="eyebrow">Software House · Sites Médicos</span>
+      <h1 class="display">
+        Sites que <em>comunicam autoridade</em>.<br />
+        Pacientes que chegam <em>decididos</em>.
+      </h1>
+      <p class="lead">
+        A Welux constrói a presença digital de clínicas e consultórios — para o paciente chegar pronto pra fechar, sem barganhar preço.
+      </p>
+      <a href="#diagnostico" class="btn btn-solid">Quero meu diagnóstico</a>
+      <div class="scroll-hint"><span>Role</span><span class="line"></span></div>
+    </div>
+  </header>
+
+  <!-- ===================== 3 · STATEMENT (posicionamento) ===================== -->
+  <section class="band band-light" data-nav="light">
+    <div class="wrap reveal">
+      <span class="eyebrow" style="display:block;margin-bottom:1.4rem">O que fazemos</span>
+      <h2 class="statement">
+        Não somos uma clínica. Construímos a presença digital que faz a clínica ser <em>escolhida</em>.
+      </h2>
+      <p class="statement-sub">
+        A Welux é a software house por trás de sites médicos de alta conversão — desenhados para transformar visitantes em pacientes e aumentar o faturamento do consultório.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 4 · DESEJOS ===================== -->
+  <section class="band band-light" data-nav="light" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <h2 class="sec-title display">Se você chegou até aqui,<br />é porque procura:</h2>
+      </div>
+      <div class="grid grid-2 reveal">
+        <div class="card"><p class="big">Paciente que chega <em>decidido</em>, sem perguntar preço</p></div>
+        <div class="card"><p class="big">Um site que <em>dá orgulho</em> de compartilhar</p></div>
+        <div class="card"><p class="big">Parar de competir com <em>clínica popular</em></p></div>
+        <div class="card"><p class="big">Atrair o <em>tipo certo</em> de paciente</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 5 · PAS ===================== -->
+  <section class="band" data-nav="dark">
+    <div class="wrap">
+      <div class="sec-head center reveal"><h2 class="sec-title display">Você concorda que:</h2></div>
+      <div class="pas reveal">
+        <div class="row"><p><span class="se">Se</span>o site parece genérico ou amador, o paciente assume que a consulta também é genérica — antes mesmo de conhecer o médico.</p></div>
+        <div class="row"><p><span class="se">Se</span>o paciente chega indeciso, ele vai barganhar preço — e quem barganha consulta dificilmente vira paciente fiel.</p></div>
+        <div class="row"><p><span class="se">Se</span>a presença digital continua fraca, a clínica segue disputando o mesmo balcão que clínica popular — perdendo tempo, autoridade e dinheiro.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 6 · DIVISOR full-bleed (M2) ===================== -->
+  <section class="fb" data-nav="dark">
+    <div class="media">
+      <div class="slot">
+        <span class="tag">M2 · Imagem atmosférica</span>
+        <span class="desc">B&amp;W full-bleed — arquitetura de consultório premium / luz / detalhe. Sem texto na imagem.</span>
+        <span class="ar">4:5 mobile · 16:9 desktop</span>
+      </div>
+    </div>
+    <div class="scrim"></div>
+    <div class="overlay reveal">
+      <span class="eyebrow label">A diferença</span>
+      <p class="fb-title">O site é a<br />primeira consulta.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 7 · SINTOMAS ===================== -->
+  <section class="band" data-nav="dark">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">O caos do dia a dia</span>
+        <h2 class="sec-title display">Você se identifica com <em>algum desses pontos</em>?</h2>
+      </div>
+      <div class="stack reveal">
+        <div class="item"><span class="idx">01</span><p>A recepção atende pacientes interessados que <strong>somem na hora de saber o valor</strong> da consulta.</p></div>
+        <div class="item"><span class="idx">02</span><p>Os anúncios trazem <strong>curiosos</strong> — não pacientes qualificados que valorizam o que você cobra.</p></div>
+        <div class="item"><span class="idx">03</span><p>O médico <strong>não tem orgulho do próprio site</strong>. Não compartilha com colega, não passa para paciente.</p></div>
+        <div class="item"><span class="idx">04</span><p>Toda hora aparece um "primo que mexe com site" oferecendo refazer barato — <strong>e a clínica merece coisa melhor</strong>.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 8 · SOLUÇÃO ===================== -->
+  <section class="band band-light" data-nav="light">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">A solução</span>
+        <h2 class="sec-title display">O <em>Método Welux</em> — transformar a clínica em referência digital no próprio nicho.</h2>
+      </div>
+      <div class="stack reveal">
+        <div class="item"><span class="neg">Sem</span><p>template genérico — cada site é desenhado para o consultório específico.</p></div>
+        <div class="item"><span class="neg">Sem</span><p>ficar refém da agência — entregamos com manual e treinamento da equipe.</p></div>
+        <div class="item"><span class="neg">Sem</span><p>promessa vazia de SEO mágico — autoridade primeiro, tráfego depois.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 9 · CASES (galeria full-bleed) ===================== -->
+  <section class="band" data-nav="dark" style="padding-bottom:clamp(2.5rem,8vw,4rem)">
+    <div class="wrap center reveal">
+      <span class="eyebrow">Cases</span>
+      <h2 class="sec-title display" style="margin-top:1.1rem">O que entregamos</h2>
+    </div>
+  </section>
+
+  <!-- M3 -->
+  <section class="fb" data-nav="dark">
+    <div class="media">
+      <div class="slot">
+        <span class="tag">M3 · Mockup de case 01</span>
+        <span class="desc">Site médico que a Welux entregou, em tela cheia (mockup B&amp;W em dispositivo).</span>
+        <span class="ar">4:5 mobile · 16:9 desktop</span>
+      </div>
+    </div>
+    <div class="scrim"></div>
+    <div class="overlay reveal">
+      <span class="eyebrow label">Case 01 — [PREENCHER]</span>
+      <p class="fb-title">[Nome da clínica]</p>
+      <p class="metric"><b>[+X%]</b> em agendamentos · [Especialidade]</p>
+      <div class="arrow" aria-hidden="true">&#8599;</div>
+    </div>
+  </section>
+
+  <!-- M4 -->
+  <section class="fb" data-nav="dark">
+    <div class="media">
+      <div class="slot">
+        <span class="tag">M4 · Mockup de case 02</span>
+        <span class="desc">Segundo site entregue — outra especialidade, mesmo tratamento B&amp;W.</span>
+        <span class="ar">4:5 mobile · 16:9 desktop</span>
+      </div>
+    </div>
+    <div class="scrim"></div>
+    <div class="overlay reveal">
+      <span class="eyebrow label">Case 02 — [PREENCHER]</span>
+      <p class="fb-title">[Nome da clínica]</p>
+      <p class="metric"><b>[+X%]</b> de ticket médio · [Especialidade]</p>
+      <div class="arrow" aria-hidden="true">&#8599;</div>
+    </div>
+  </section>
+
+  <!-- M5 -->
+  <section class="fb" data-nav="dark">
+    <div class="media">
+      <div class="slot">
+        <span class="tag">M5 · Mockup de case 03</span>
+        <span class="desc">Terceiro site entregue — mockup B&amp;W em dispositivo / tela cheia.</span>
+        <span class="ar">4:5 mobile · 16:9 desktop</span>
+      </div>
+    </div>
+    <div class="scrim"></div>
+    <div class="overlay reveal">
+      <span class="eyebrow label">Case 03 — [PREENCHER]</span>
+      <p class="fb-title">[Nome da clínica]</p>
+      <p class="metric"><b>[+X]</b> consultas/mês · [Especialidade]</p>
+      <div class="arrow" aria-hidden="true">&#8599;</div>
+    </div>
+  </section>
+
+  <!-- ===================== 10 · MÉTODO ===================== -->
+  <section class="band metodo" id="metodo" data-nav="dark">
+    <div class="wrap metodo-inner">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">O Método</span>
+        <h2 class="sec-title display">Três etapas. Feitas por nós, do início ao fim.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="num">01</span><div>
+          <h3>Diagnóstico de Posicionamento</h3>
+          <p>Mergulhamos no consultório: tipo de paciente, valores, especialidade, concorrência local. A saída é um documento estratégico que define <strong>como a clínica quer ser vista</strong> antes de qualquer pixel.</p>
+        </div></div>
+        <div class="step"><span class="num">02</span><div>
+          <h3>Construção (Done For You)</h3>
+          <p>Design + texto + setup técnico — feito pela Welux do início ao fim. Você revisa, a gente entrega. <strong>Não entregamos PowerPoint bonito. Executamos.</strong></p>
+        </div></div>
+        <div class="step"><span class="num">03</span><div>
+          <h3>Lançamento + Manual</h3>
+          <p>Publicação no domínio, integrações (WhatsApp, agendamento, analytics), treinamento da equipe e manual de operação. <strong>A clínica fica autônoma.</strong></p>
+        </div></div>
+      </div>
+      <div class="center mt"><a href="#diagnostico" class="btn btn-ghost">Falar com o especialista</a></div>
+    </div>
+  </section>
+
+  <!-- ===================== 11 · DEPOIMENTOS ===================== -->
+  <section class="band band-light" data-nav="light">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Depoimentos</span>
+        <h2 class="sec-title display">Quem já passou pelo método</h2>
+      </div>
+      <div class="quotes reveal">
+        <div class="quote-card">
+          <div class="ph">M6a<br>foto</div>
+          <p class="q">[PREENCHER: depoimento com número e alívio operacional.]</p>
+          <p class="who">[Nome do médico]</p>
+          <p class="role">[Especialidade — Cidade]</p>
+        </div>
+        <div class="quote-card">
+          <div class="ph">M6b<br>foto</div>
+          <p class="q">[PREENCHER: depoimento sobre ticket / qualidade do paciente.]</p>
+          <p class="who">[Nome do médico]</p>
+          <p class="role">[Especialidade — Cidade]</p>
+        </div>
+        <div class="quote-card">
+          <div class="ph">M6c<br>foto</div>
+          <p class="q">[PREENCHER: depoimento sobre o processo com a Welux.]</p>
+          <p class="who">[Nome do médico]</p>
+          <p class="role">[Especialidade — Cidade]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 12 · DIAGNÓSTICO (formulário) ===================== -->
+  <section class="band" id="diagnostico" data-nav="dark">
+    <div class="wrap">
+      <div class="diag-grid">
+        <div class="reveal">
+          <span class="eyebrow">Processo seletivo</span>
+          <h2 class="sec-title display" style="margin-top:1.1rem">Aplique para um <em>diagnóstico estratégico</em></h2>
+          <p style="color:var(--muted);margin-top:1.3rem;font-size:1.02rem">
+            Não atendemos qualquer clínica. Antes de propor qualquer coisa, entendemos o consultório, o paciente e o posicionamento. Só seguimos com quem se encaixa.
+          </p>
+          <ul class="diag-list">
+            <li>Conversa estratégica de 30 minutos</li>
+            <li>Diagnóstico do posicionamento atual</li>
+            <li>Sem compromisso de fechar</li>
+            <li>Atendimento personalizado para a especialidade</li>
+          </ul>
+        </div>
+        <form class="form reveal" action="#" method="post" novalidate>
+          <div class="field"><label for="f-nome">Nome completo</label><input id="f-nome" type="text" required /></div>
+          <div class="field"><label for="f-zap">WhatsApp</label><input id="f-zap" type="tel" required placeholder="(11) 99999-9999" /></div>
+          <div class="field"><label for="f-email">E-mail</label><input id="f-email" type="email" required /></div>
+          <div class="field"><label for="f-esp">Especialidade</label><input id="f-esp" type="text" required placeholder="Ex.: Dermatologia, Cardiologia..." /></div>
+          <div class="field"><label for="f-site">Site atual (se houver)</label><input id="f-site" type="url" placeholder="https://" /></div>
+          <div class="field"><label for="f-gargalo">Principal gargalo hoje</label>
+            <select id="f-gargalo" required>
+              <option value="">Selecione...</option>
+              <option>Paciente barganha preço</option>
+              <option>Agenda com furos</option>
+              <option>Não atraio o tipo certo de paciente</option>
+              <option>Site/Instagram não converte</option>
+              <option>Concorrência local crescendo</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-solid" style="width:100%">Quero meu diagnóstico</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 13 · CTA FINAL ===================== -->
+  <section class="band" data-nav="dark">
+    <div class="wrap final reveal">
+      <h2 class="display">O site é a <em>primeira consulta</em>.<br />Faça ela valer.</h2>
+      <a href="#diagnostico" class="btn btn-solid">Quero meu diagnóstico</a>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer" data-nav="dark">
+    <svg viewBox="0 0 2048 2048" aria-hidden="true"><use href="#wl-path"/></svg>
+    <p class="wm">Welux</p>
+    <p class="meta">welux.com.br · contato@welux.com.br</p>
+    <p class="copy">© 2026 Welux. Software house de sites médicos de alta conversão.</p>
+  </footer>
+
+  <!-- ===================== Bibliotecas ===================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <script>
+  (function(){
+    "use strict";
+    var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var IS_MOBILE = window.matchMedia('(max-width: 760px)').matches;
+
+    /* ---- 1 · Lenis (scroll suave) ---- */
+    var lenis = null;
+    if (!REDUCED && window.Lenis){
+      lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+      window.lenis = lenis;
+      lenis.on('scroll', function(){ if (window.ScrollTrigger) ScrollTrigger.update(); });
+      gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+    if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+    /* ---- 2 · Nav: scrolled + troca de cor por seção ---- */
+    function initNav(){
+      var nav = document.getElementById('nav');
+      window.addEventListener('scroll', function(){
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+      }, { passive:true });
+
+      var secs = document.querySelectorAll('[data-nav]');
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){
+            nav.classList.toggle('on-light', e.target.getAttribute('data-nav') === 'light');
+          }
+        });
+      }, { rootMargin: '-58px 0px -' + Math.max(0, window.innerHeight - 60) + 'px 0px' });
+      secs.forEach(function(s){ obs.observe(s); });
+    }
+
+    /* ---- 3 · Reveals + método ---- */
+    function initScroll(){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el){
+        if (REDUCED){ el.classList.add('in'); return; }
+        io.observe(el);
+      });
+
+      var steps = gsap.utils.toArray('.metodo .step');
+      if (steps.length && !REDUCED && !IS_MOBILE && window.ScrollTrigger){
+        var setActive = function(idx){
+          steps.forEach(function(s,i){ s.classList.toggle('active', i <= idx); });
+        };
+        var tl = gsap.timeline({
+          scrollTrigger:{ trigger:'.metodo', start:'top top',
+            end:'+=' + (steps.length*70) + '%', pin:'.metodo-inner', scrub:0.6 }
+        });
+        steps.forEach(function(s,i){
+          tl.to(s,{ onStart:function(){ setActive(i); }, onReverseComplete:function(){ setActive(i-1); } }, i);
+        });
+      } else {
+        var sio = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.35 });
+        steps.forEach(function(s){ sio.observe(s); });
+      }
+    }
+
+    /* ---- 4 · WebGL — partículas WL no hero ---- */
+    function initWebGL(){
+      var canvas = document.getElementById('bg');
+      var hero = document.getElementById('hero');
+      if (!window.THREE || !canvas || !hero) return;
+
+      var renderer = new THREE.WebGLRenderer({ canvas:canvas, alpha:true, antialias:false });
+      var DPR = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 2 : 1.75);
+      renderer.setPixelRatio(DPR);
+      function size(){ return { w: hero.clientWidth, h: hero.clientHeight }; }
+      var s = size();
+      renderer.setSize(s.w, s.h);
+
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(55, s.w/s.h, 0.1, 100);
+      camera.position.z = 12;
+      function visible(){
+        var h = 2 * Math.tan((camera.fov*Math.PI/180)/2) * camera.position.z;
+        return { h:h, w:h*camera.aspect };
+      }
+
+      function sampleLogo(cb){
+        var svg = document.getElementById('wl-src');
+        var str = new XMLSerializer().serializeToString(svg);
+        var img = new Image();
+        img.onload = function(){
+          var S = 512, c = document.createElement('canvas'); c.width=S; c.height=S;
+          var ctx = c.getContext('2d'); ctx.drawImage(img,0,0,S,S);
+          var data; try{ data = ctx.getImageData(0,0,S,S).data; }catch(e){ cb([]); return; }
+          var step = IS_MOBILE ? 4 : 3, pts = [], minX=1e9,maxX=-1e9,minY=1e9,maxY=-1e9;
+          for (var y=0;y<S;y+=step){ for (var x=0;x<S;x+=step){
+            if (data[(y*S+x)*4+3] > 110){
+              var px=x/S, py=y/S; pts.push([px,py]);
+              if(px<minX)minX=px; if(px>maxX)maxX=px; if(py<minY)minY=py; if(py>maxY)maxY=py;
+            }
+          }}
+          var w=maxX-minX, cx=(minX+maxX)/2, cy=(minY+maxY)/2;
+          cb(pts.map(function(p){ return [ (p[0]-cx)/w, -(p[1]-cy)/w ]; }));
+        };
+        img.onerror = function(){ cb([]); };
+        img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(str);
+      }
+
+      var uniforms = {
+        uAssemble:{value:0}, uDisperse:{value:0}, uTime:{value:0},
+        uMouse:{value:new THREE.Vector2(999,999)},
+        uSize:{value:(IS_MOBILE?2.2:2.9)*DPR},
+        uColor:{value:new THREE.Color(0.957,0.949,0.933)}
+      };
+      var points = null;
+
+      function build(norm){
+        if (!norm.length) return;
+        var n = norm.length;
+        var target = new Float32Array(n*3), scatter = new Float32Array(n*3), rand = new Float32Array(n);
+        var v = visible();
+        var logoW = v.w * (IS_MOBILE ? 0.58 : 0.32);
+        var yOff = v.h * (IS_MOBILE ? 0.205 : 0.17);
+        for (var i=0;i<n;i++){
+          target[i*3]=norm[i][0]*logoW; target[i*3+1]=norm[i][1]*logoW+yOff; target[i*3+2]=(Math.random()-0.5)*0.6;
+          var a=Math.random()*Math.PI*2, r=6+Math.random()*14;
+          scatter[i*3]=Math.cos(a)*r; scatter[i*3+1]=(Math.random()-0.5)*v.h*2.2; scatter[i*3+2]=(Math.random()-0.5)*16-4;
+          rand[i]=Math.random();
+        }
+        var geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(target,3));
+        geo.setAttribute('aTarget', new THREE.BufferAttribute(target,3));
+        geo.setAttribute('aScatter', new THREE.BufferAttribute(scatter,3));
+        geo.setAttribute('aRand', new THREE.BufferAttribute(rand,1));
+        var mat = new THREE.ShaderMaterial({
+          uniforms:uniforms, transparent:true, depthTest:false, depthWrite:false,
+          blending:THREE.AdditiveBlending,
+          vertexShader:[
+            'attribute vec3 aTarget;','attribute vec3 aScatter;','attribute float aRand;',
+            'uniform float uAssemble;','uniform float uDisperse;','uniform float uTime;',
+            'uniform float uSize;','uniform vec2 uMouse;','varying float vAlpha;',
+            'void main(){',
+            ' float e=uAssemble*uAssemble*(3.0-2.0*uAssemble);',
+            ' vec3 pos=mix(aScatter,aTarget,e);',
+            ' pos=mix(pos,aScatter*1.5,uDisperse);',
+            ' float ph=aRand*6.2831;',
+            ' pos.x+=sin(uTime*0.25+ph)*0.07; pos.y+=cos(uTime*0.22+ph)*0.07;',
+            ' vec2 d=pos.xy-uMouse; float dist=length(d);',
+            ' float f=smoothstep(2.6,0.0,dist)*0.7; pos.xy+=normalize(d+0.0001)*f;',
+            ' vec4 mv=modelViewMatrix*vec4(pos,1.0);',
+            ' gl_Position=projectionMatrix*mv;',
+            ' gl_PointSize=uSize*(40.0/-mv.z);',
+            ' vAlpha=mix(0.06,0.66,e)*(1.0-uDisperse*0.82);',
+            '}'
+          ].join('\n'),
+          fragmentShader:[
+            'uniform vec3 uColor;','varying float vAlpha;',
+            'void main(){',
+            ' vec2 uv=gl_PointCoord-0.5; float d=length(uv);',
+            ' if(d>0.5) discard;',
+            ' gl_FragColor=vec4(uColor,smoothstep(0.5,0.0,d)*vAlpha);',
+            '}'
+          ].join('\n')
+        });
+        points = new THREE.Points(geo,mat);
+        scene.add(points);
+        if (REDUCED){ uniforms.uAssemble.value = 1; }
+        else { gsap.to(uniforms.uAssemble,{value:1,duration:2.6,ease:'power2.out',delay:0.25}); }
+        if (window.ScrollTrigger){
+          ScrollTrigger.create({ trigger:'#hero', start:'top top', end:'bottom top', scrub:true,
+            onUpdate:function(self){ uniforms.uDisperse.value = self.progress; } });
+        }
+      }
+
+      var pointer = { x:999, y:999 };
+      function move(cx,cy){
+        var r = hero.getBoundingClientRect(), v = visible();
+        pointer.x = ((cx-r.left)/r.width - 0.5) * v.w;
+        pointer.y = -((cy-r.top)/r.height - 0.5) * v.h;
+      }
+      window.addEventListener('pointermove', function(e){ move(e.clientX,e.clientY); }, {passive:true});
+      window.addEventListener('touchmove', function(e){ if(e.touches[0]) move(e.touches[0].clientX,e.touches[0].clientY); }, {passive:true});
+
+      var clock = new THREE.Clock(), running = true;
+      document.addEventListener('visibilitychange', function(){ running = !document.hidden; });
+      gsap.ticker.add(function(){
+        if (!running) return;
+        uniforms.uTime.value = clock.getElapsedTime();
+        uniforms.uMouse.value.x += (pointer.x - uniforms.uMouse.value.x)*0.08;
+        uniforms.uMouse.value.y += (pointer.y - uniforms.uMouse.value.y)*0.08;
+        if (points) points.rotation.y = Math.sin(uniforms.uTime.value*0.1)*0.05;
+        renderer.render(scene,camera);
+      });
+      window.addEventListener('resize', function(){
+        var s2 = size();
+        camera.aspect = s2.w/s2.h; camera.updateProjectionMatrix();
+        renderer.setSize(s2.w,s2.h);
+      });
+      sampleLogo(build);
+    }
+
+    function boot(){
+      initNav();
+      try{ initWebGL(); }catch(e){ console.warn('WebGL off:', e); }
+      initScroll();
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+    if (document.readyState === 'complete') boot();
+    else window.addEventListener('load', boot);
+  })();
+  </script>
+</body>
+</html>
