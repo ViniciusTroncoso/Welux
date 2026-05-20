@@ -439,7 +439,7 @@ body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: anti
 <div class="dots" id="dots"></div>
 <nav class="nav">
   <button class="nbtn" id="prev">‹</button>
-  <div class="ninfo"><b id="cur">01</b> / 13</div>
+  <div class="ninfo"><b id="cur">01</b> / <span id="tot">13</span></div>
   <button class="nbtn" id="next">›</button>
 </nav>
 
@@ -846,8 +846,51 @@ function warpBurst() {
   });
 }
 
-/* ═══ CAMERA STATES — 13 slides ════════════ */
-const STATES = [
+/* ═══ CAMERA STATES MOBILE — 17 slides ═════ */
+const MOBILE_STATES = [
+  /* 01 capa */         { cx:0,    cy:0,    cz:0,  lx:0,    ly:0,    lz:-10 },
+  /* 02 welux A */      { cx:1.5,  cy:.8,   cz:0,  lx:.5,   ly:.3,   lz:-10 },
+  /* 03 welux B */      { cx:-.8,  cy:-.4,  cz:0,  lx:-.3,  ly:-.2,  lz:-10 },
+  /* 04 diag intro */   { cx:-1,   cy:1.2,  cz:0,  lx:-.4,  ly:.5,   lz:-10 },
+  /* 05 dor I */        { cx:-2,   cy:-.8,  cz:0,  lx:-.8,  ly:-.3,  lz:-10 },
+  /* 06 dor II */       { cx:2,    cy:-1.5, cz:0,  lx:.7,   ly:-.5,  lz:-10 },
+  /* 07 dor III */      { cx:1,    cy:2,    cz:0,  lx:.3,   ly:.7,   lz:-10 },
+  /* 08 dor IV */       { cx:-1.2, cy:1.5,  cz:0,  lx:-.4,  ly:.5,   lz:-10 },
+  /* 09 entregáveis */  { cx:-.8,  cy:-.5,  cz:0,  lx:-.3,  ly:-.2,  lz:-10 },
+  /* 10 método */       { cx:0,    cy:-1,   cz:0,  lx:0,    ly:-.4,  lz:-10 },
+  /* 11 comparativo */  { cx:1.2,  cy:.6,   cz:0,  lx:.4,   ly:.2,   lz:-10 },
+  /* 12 case A */       { cx:-1.5, cy:1,    cz:0,  lx:-.5,  ly:.3,   lz:-10 },
+  /* 13 case B */       { cx:.8,   cy:-.6,  cz:0,  lx:.3,   ly:-.2,  lz:-10 },
+  /* 14 garantias */    { cx:.5,   cy:-.8,  cz:0,  lx:.2,   ly:-.3,  lz:-10 },
+  /* 15 cronograma */   { cx:-.4,  cy:.6,   cz:0,  lx:-.2,  ly:.2,   lz:-10 },
+  /* 16 investimento */ { cx:0,    cy:0,    cz:0,  lx:0,    ly:0,    lz:-10 },
+  /* 17 fechamento */   { cx:-.5,  cy:.5,   cz:0,  lx:-.2,  ly:.2,   lz:-10 },
+];
+
+
+/* ═══ MOBILE SPLIT ══════════════════════════ */
+function splitSlidesForMobile() {
+  ['s02', 's06', 's10', 's11'].forEach(id => {
+    const slide = document.getElementById(id);
+    if (!slide) return;
+    const kids = [...slide.children];
+    if (kids.length < 2) return;
+    slide.classList.remove('split');
+    slide.classList.add('left');
+    slide.removeChild(kids[1]);
+    const slideB = document.createElement('div');
+    slideB.className = 'sc left';
+    slideB.id = id + 'b';
+    slideB.appendChild(kids[1]);
+    slide.after(slideB);
+  });
+}
+
+if (isMobile) splitSlidesForMobile();
+
+/* ═══ SLIDE ENGINE ══════════════════════════ */
+const TOTAL   = isMobile ? 17 : 13;
+const STATES  = isMobile ? MOBILE_STATES : [
   /* 01 capa */         { cx:0,    cy:0,    cz:0, lx:0,    ly:0,    lz:-10 },
   /* 02 welux */        { cx:1.5,  cy:.8,   cz:0, lx:.5,   ly:.3,   lz:-10 },
   /* 03 diag intro */   { cx:-1,   cy:1.2,  cz:0, lx:-.4,  ly:.5,   lz:-10 },
@@ -862,9 +905,6 @@ const STATES = [
   /* 12 investimento */ { cx:0,    cy:0,    cz:0, lx:0,    ly:0,    lz:-10 },
   /* 13 fechamento */   { cx:-.5,  cy:.5,   cz:0, lx:-.2,  ly:.2,   lz:-10 },
 ];
-
-/* ═══ SLIDE ENGINE ══════════════════════════ */
-const TOTAL   = 13;
 let current   = 0;
 let animating = false;
 const slides  = [...document.querySelectorAll('.sc')];
@@ -879,6 +919,7 @@ for(let i=0;i<TOTAL;i++){
   dotsEl.appendChild(d);
 }
 
+document.getElementById('tot').textContent = String(TOTAL);
 slides[0].style.opacity='1';
 slides[0].classList.add('active');
 
