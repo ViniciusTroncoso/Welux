@@ -323,12 +323,13 @@ body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: anti
   .dots { display: none; }
 
   /* Padding base — 80px embaixo reserva o CTA sticky */
-  .sc         { padding: 24px 24px 80px; }
-  .sc.center  { padding: 24px 24px 80px; align-items: center; }
-  .sc.left    { padding: 24px 24px 80px; }
+  /* justify-content: flex-start + overflow-y corrige slides com conteúdo longo */
+  .sc         { padding: 40px 24px 80px; justify-content: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .sc.center  { padding: 40px 24px 80px; align-items: center; }
+  .sc.left    { padding: 40px 24px 80px; }
   .sc.split   {
     display: flex; flex-direction: column;
-    padding: 24px 24px 80px; gap: 32px;
+    padding: 40px 24px 80px; gap: 32px;
   }
 
   /* Logo */
