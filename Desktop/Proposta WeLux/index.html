@@ -1013,6 +1013,48 @@ window.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')               { e.preventDefault(); goTo(current-1); }
 });
 
+/* ═══ COMPARATIVO CARDS MOBILE ═════════════ */
+function renderCompCards() {
+  if (!isMobile) return;
+  const s09 = document.getElementById('s09');
+  if (!s09) return;
+
+  const rows = [...s09.querySelectorAll('.comp-table tbody tr')];
+  const semData = [];
+  const comData = [];
+
+  rows.forEach(row => {
+    const cells = [...row.querySelectorAll('td')];
+    if (cells.length < 4) return;
+    const label = cells[0].textContent.trim();
+    semData.push({ label, val: cells[1].textContent.trim() });
+    comData.push({ label, val: cells[3].textContent.trim() });
+  });
+
+  const rowHTML = items => items.map(r =>
+    `<div class="mob-comp-row">
+      <span class="mob-comp-lbl">${r.label}</span>
+      <span class="mob-comp-val">${r.val}</span>
+    </div>`
+  ).join('');
+
+  const cards = document.createElement('div');
+  cards.className = 'mob-comp';
+  cards.innerHTML = `
+    <div class="mob-comp-card mob-comp-sem">
+      <div class="mob-comp-head">Outras agências</div>
+      ${rowHTML(semData)}
+    </div>
+    <div class="mob-comp-card mob-comp-com">
+      <div class="mob-comp-head">WELUX High Ticket ★</div>
+      ${rowHTML(comData)}
+    </div>`;
+
+  s09.appendChild(cards);
+}
+
+renderCompCards();
+
 /* ═══ SWIPE MOBILE ══════════════════════════ */
 if (isMobile) {
   let _tx = 0;
