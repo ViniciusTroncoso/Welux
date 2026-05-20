@@ -953,6 +953,10 @@ function goTo(idx) {
   curEl.textContent=String(to+1).padStart(2,'0');
   progEl.style.width=((to/(TOTAL-1))*100)+'%';
   [...dotsEl.querySelectorAll('.dot')].forEach((d,i)=>d.classList.toggle('act',i===to));
+  if (isMobile) {
+    const cta = document.getElementById('mobile-cta');
+    if (cta) cta.classList.toggle('cta-close', to >= TOTAL - 2);
+  }
 }
 
 /* ═══ PERSONALIZAÇÃO ════════════════════════ */
