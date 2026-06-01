@@ -86,6 +86,7 @@ export default function ChatLeadForm() {
   const [screen, setScreen] = useState<null | "loading" | Routing>(null)
   const [contactFormSubmitted, setContactFormSubmitted] = useState(false)
   const abortRef = useRef<AbortController | null>(null)
+  const contactSubmittedRef = useRef(false)
   const chatRef = useRef<HTMLDivElement>(null)
 
   // Scroll only within the chat container — never the window
@@ -210,6 +211,8 @@ export default function ChatLeadForm() {
   }
 
   async function handleContactSubmit(nome: string, whatsapp: string) {
+    if (contactSubmittedRef.current) return
+    contactSubmittedRef.current = true
     setContactFormSubmitted(true)
     const userMsg: Message = {
       role: "user",
