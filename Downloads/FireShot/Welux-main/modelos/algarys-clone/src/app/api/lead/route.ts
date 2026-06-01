@@ -9,10 +9,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 })
   }
 
-  const [local, ai] = await Promise.all([
-    Promise.resolve(localScore(lead)),
-    groqScore(lead),
-  ])
+  let local: number, ai: number
+  try {
+    ;[local, ai] = await Promise.all([
+      Promise.resolve(localScore(lead)),
+      groqScore(lead),
+    ])
+  } catch {
+    // groqScore has internal fallback but guard against unexpected throws
+    local = localScore(lead)
+    ai = 1
+  }
 
   const total = local + ai
   const routing = getRouting(total)
