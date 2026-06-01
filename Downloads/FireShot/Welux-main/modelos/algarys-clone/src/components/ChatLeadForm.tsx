@@ -20,6 +20,23 @@ const OPENING_MESSAGE: Message = {
   content: "Oi! Sou a Aria da Welux. Antes da gente conversar, me conta — qual é o seu nome?",
 }
 
+const SUGGEST_RE = /\[SUGGEST:\s*([^\]]+)\]\s*$/
+
+function parseMessage(content: string): { text: string; suggestions: string[] } {
+  const match = content.match(SUGGEST_RE)
+  if (!match) return { text: content.trim(), suggestions: [] }
+
+  const suggestions = match[1]
+    .split(",")
+    .map((s) => s.trim().replace(/^"|"$/g, ""))
+    .filter(Boolean)
+
+  return {
+    text: content.replace(SUGGEST_RE, "").trim(),
+    suggestions,
+  }
+}
+
 // ── Sub-components ─────────────────────────────────────
 
 function WeluxAvatar() {
@@ -252,6 +269,13 @@ export default function ChatLeadForm() {
 
               if (!msg.content) return null
 
+              const { text, suggestions } = parseMessage(msg.content)
+              const showSuggestions =
+                suggestions.length > 0 &&
+                !isStreaming &&
+                msg.role === "assistant" &&
+                i === messages.length - 1
+
               return (
                 <motion.div
                   key={i}
@@ -262,18 +286,140 @@ export default function ChatLeadForm() {
                 >
                   {msg.role === "assistant" && <WeluxAvatar />}
 
-                  <div
-                    className={[
-                      "max-w-[78%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
-                      msg.role === "assistant"
-                        ? "rounded-bl-sm bg-white/5 border border-white/8 text-body"
-                        : "rounded-br-sm bg-primary text-background font-medium",
-                    ].join(" ")}
-                  >
-                    {msg.content}
-                    {/* Blinking cursor while streaming */}
-                    {isStreamingThis && (
-                      <span className="inline-block w-[2px] h-[14px] bg-secondary/70 ml-[2px] align-middle animate-pulse" />
+                  <div className="flex flex-col gap-2 max-w-[78%]">
+                    <div
+                      className={[
+                        "rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
+                        msg.role === "assistant"
+                          ? "rounded-bl-sm bg-white/5 border border-white/8 text-body"
+                          : "rounded-br-sm bg-primary text-background font-medium",
+                      ].join(" ")}
+                    >
+                      {text}
+                      {/* Blinking cursor while streaming */}
+                      {isStreamingThis && (
+                        <span className="inline-block w-[2px] h-[14px] bg-secondary/70 ml-[2px] align-middle animate-pulse" />
+                      )}
+                    </div>
+
+                    {showSuggestions && (
+                      <div className="flex flex-wrap gap-1.5 pl-1">
+                        {suggestions.map((s) => (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => {
+                              setInput(s)
+                              // Submit after React processes the state update
+                              setTimeout(() => {
+                                const syntheticText = s.trim()
+                                if (!syntheticText || isStreaming) return
+
+                                const userMsg: Message = { role: "user", content: syntheticText }
+                                const history = [...messages, userMsg]
+                                setMessages(history)
+                                setInput("")
+
+                                // Trigger the full submit flow inline
+                                ;(async () => {
+                                  setIsStreaming(true)
+                                  abortRef.current?.abort()
+                                  const ctrl = new AbortController()
+                                  abortRef.current = ctrl
+
+                                  try {
+                                    const res = await fetch("/api/chat-lead", {
+                                      method: "POST",
+                                      headers: { "Content-Type": "application/json" },
+                                      body: JSON.stringify({ messages: history }),
+                                      signal: ctrl.signal,
+                                    })
+
+                                    if (!res.ok || !res.body) throw new Error("stream_failed")
+
+                                    const reader = res.body.getReader()
+                                    const decoder = new TextDecoder()
+                                    let aiContent = ""
+
+                                    setMessages((prev) => [...prev, { role: "assistant", content: "" }])
+
+                                    while (true) {
+                                      const { done, value } = await reader.read()
+                                      if (done) break
+
+                                      const lines = decoder.decode(value, { stream: true }).split("\n")
+                                      let chunkHadTokens = false
+
+                                      for (const line of lines) {
+                                        if (!line.startsWith("data: ")) continue
+                                        const data = line.slice(6).trim()
+                                        if (data === "[DONE]") continue
+                                        try {
+                                          const parsed = JSON.parse(data) as {
+                                            choices: [{ delta: { content?: string } }]
+                                          }
+                                          const token = parsed.choices[0]?.delta?.content ?? ""
+                                          if (token) {
+                                            aiContent += token
+                                            chunkHadTokens = true
+                                          }
+                                        } catch {}
+                                      }
+
+                                      if (chunkHadTokens) {
+                                        setMessages((prev) => {
+                                          const next = [...prev]
+                                          next[next.length - 1] = { role: "assistant", content: aiContent }
+                                          return next
+                                        })
+                                        await new Promise<void>((r) => setTimeout(r, 0))
+                                      }
+                                    }
+
+                                    if (aiContent.includes(LEAD_MARKER)) {
+                                      const idx = aiContent.indexOf(LEAD_MARKER)
+                                      const jsonStr = aiContent.slice(idx + LEAD_MARKER.length).trim()
+                                      setMessages((prev) => {
+                                        const next = [...prev]
+                                        next[next.length - 1] = {
+                                          role: "assistant",
+                                          content: "Perfeito! Já tenho tudo que preciso. Deixa eu chamar o time pra você.",
+                                        }
+                                        return next
+                                      })
+                                      await new Promise((r) => setTimeout(r, 1200))
+                                      setScreen("loading")
+                                      try {
+                                        const leadData = JSON.parse(jsonStr) as Record<string, unknown>
+                                        const scoreRes = await fetch("/api/lead", {
+                                          method: "POST",
+                                          headers: { "Content-Type": "application/json" },
+                                          body: JSON.stringify(leadData),
+                                        })
+                                        const { routing } = (await scoreRes.json()) as { routing: Routing }
+                                        setScreen(routing)
+                                      } catch {
+                                        setScreen("warm")
+                                      }
+                                    }
+                                  } catch (err) {
+                                    if (err instanceof Error && err.name === "AbortError") return
+                                    setMessages((prev) => [
+                                      ...prev.slice(0, -1),
+                                      { role: "assistant", content: "Desculpa, tive um problema aqui. Pode tentar de novo?" },
+                                    ])
+                                  } finally {
+                                    setIsStreaming(false)
+                                  }
+                                })()
+                              }, 10)
+                            }}
+                            className="rounded-full border border-white/15 bg-white/4 px-3 py-1 text-xs text-secondary hover:border-white/30 hover:text-heading hover:bg-white/8 transition-all duration-150"
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </motion.div>
