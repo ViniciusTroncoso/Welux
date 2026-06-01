@@ -79,16 +79,8 @@ export default function ChatLeadForm() {
     chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" })
   }, [messages])
 
-  async function handleSubmit() {
-    const text = input.trim()
-    if (!text || isStreaming) return
-
-    const userMsg: Message = { role: "user", content: text }
-    const history = [...messages, userMsg]
-    setMessages(history)
-    setInput("")
+  async function doSubmit(history: Message[]) {
     setIsStreaming(true)
-
     abortRef.current?.abort()
     const ctrl = new AbortController()
     abortRef.current = ctrl
@@ -188,6 +180,17 @@ export default function ChatLeadForm() {
     } finally {
       setIsStreaming(false)
     }
+  }
+
+  async function handleSubmit() {
+    const text = input.trim()
+    if (!text || isStreaming) return
+
+    const userMsg: Message = { role: "user", content: text }
+    const history = [...messages, userMsg]
+    setMessages(history)
+    setInput("")
+    await doSubmit(history)
   }
 
   // ── Result screen ──────────────────────────────────
@@ -309,110 +312,11 @@ export default function ChatLeadForm() {
                             key={s}
                             type="button"
                             onClick={() => {
-                              setInput(s)
-                              // Submit after React processes the state update
-                              setTimeout(() => {
-                                const syntheticText = s.trim()
-                                if (!syntheticText || isStreaming) return
-
-                                const userMsg: Message = { role: "user", content: syntheticText }
-                                const history = [...messages, userMsg]
-                                setMessages(history)
-                                setInput("")
-
-                                // Trigger the full submit flow inline
-                                ;(async () => {
-                                  setIsStreaming(true)
-                                  abortRef.current?.abort()
-                                  const ctrl = new AbortController()
-                                  abortRef.current = ctrl
-
-                                  try {
-                                    const res = await fetch("/api/chat-lead", {
-                                      method: "POST",
-                                      headers: { "Content-Type": "application/json" },
-                                      body: JSON.stringify({ messages: history }),
-                                      signal: ctrl.signal,
-                                    })
-
-                                    if (!res.ok || !res.body) throw new Error("stream_failed")
-
-                                    const reader = res.body.getReader()
-                                    const decoder = new TextDecoder()
-                                    let aiContent = ""
-
-                                    setMessages((prev) => [...prev, { role: "assistant", content: "" }])
-
-                                    while (true) {
-                                      const { done, value } = await reader.read()
-                                      if (done) break
-
-                                      const lines = decoder.decode(value, { stream: true }).split("\n")
-                                      let chunkHadTokens = false
-
-                                      for (const line of lines) {
-                                        if (!line.startsWith("data: ")) continue
-                                        const data = line.slice(6).trim()
-                                        if (data === "[DONE]") continue
-                                        try {
-                                          const parsed = JSON.parse(data) as {
-                                            choices: [{ delta: { content?: string } }]
-                                          }
-                                          const token = parsed.choices[0]?.delta?.content ?? ""
-                                          if (token) {
-                                            aiContent += token
-                                            chunkHadTokens = true
-                                          }
-                                        } catch {}
-                                      }
-
-                                      if (chunkHadTokens) {
-                                        setMessages((prev) => {
-                                          const next = [...prev]
-                                          next[next.length - 1] = { role: "assistant", content: aiContent }
-                                          return next
-                                        })
-                                        await new Promise<void>((r) => setTimeout(r, 0))
-                                      }
-                                    }
-
-                                    if (aiContent.includes(LEAD_MARKER)) {
-                                      const idx = aiContent.indexOf(LEAD_MARKER)
-                                      const jsonStr = aiContent.slice(idx + LEAD_MARKER.length).trim()
-                                      setMessages((prev) => {
-                                        const next = [...prev]
-                                        next[next.length - 1] = {
-                                          role: "assistant",
-                                          content: "Perfeito! Já tenho tudo que preciso. Deixa eu chamar o time pra você.",
-                                        }
-                                        return next
-                                      })
-                                      await new Promise((r) => setTimeout(r, 1200))
-                                      setScreen("loading")
-                                      try {
-                                        const leadData = JSON.parse(jsonStr) as Record<string, unknown>
-                                        const scoreRes = await fetch("/api/lead", {
-                                          method: "POST",
-                                          headers: { "Content-Type": "application/json" },
-                                          body: JSON.stringify(leadData),
-                                        })
-                                        const { routing } = (await scoreRes.json()) as { routing: Routing }
-                                        setScreen(routing)
-                                      } catch {
-                                        setScreen("warm")
-                                      }
-                                    }
-                                  } catch (err) {
-                                    if (err instanceof Error && err.name === "AbortError") return
-                                    setMessages((prev) => [
-                                      ...prev.slice(0, -1),
-                                      { role: "assistant", content: "Desculpa, tive um problema aqui. Pode tentar de novo?" },
-                                    ])
-                                  } finally {
-                                    setIsStreaming(false)
-                                  }
-                                })()
-                              }, 10)
+                              if (isStreaming) return
+                              const userMsg: Message = { role: "user", content: s }
+                              const history = [...messages, userMsg]
+                              setMessages(history)
+                              void doSubmit(history)
                             }}
                             className="rounded-full border border-white/15 bg-white/4 px-3 py-1 text-xs text-secondary hover:border-white/30 hover:text-heading hover:bg-white/8 transition-all duration-150"
                           >
