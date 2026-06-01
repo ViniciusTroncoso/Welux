@@ -41,6 +41,7 @@ export default function GargaloStep({
           <button
             key={tag}
             type="button"
+            aria-pressed={tags.includes(tag)}
             onClick={() => onToggleTag(tag)}
             className={[
               "rounded-full border px-4 py-1.5 text-sm transition-all duration-200",

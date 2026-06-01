@@ -18,7 +18,14 @@ export default function ProgressBar({ step, total }: ProgressBarProps) {
         </span>
         <span className="text-xs text-secondary">{pct}%</span>
       </div>
-      <div className="h-px bg-border rounded-full overflow-hidden">
+      <div
+        role="progressbar"
+        aria-valuenow={pct}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Progresso do formulário"
+        className="h-1 bg-border rounded-full overflow-hidden"
+      >
         <motion.div
           className="h-full bg-primary rounded-full"
           initial={{ width: 0 }}

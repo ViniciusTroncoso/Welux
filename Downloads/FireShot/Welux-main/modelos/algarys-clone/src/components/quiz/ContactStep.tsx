@@ -23,7 +23,7 @@ export default function ContactStep({
   onSubmit,
 }: ContactStepProps) {
   const canSubmit =
-    nome.trim().length >= 2 && whatsapp.replace(/\D/g, "").length >= 10
+    nome.trim().length >= 2 && whatsapp.replace(/\D/g, "").length >= 11
 
   return (
     <div className="flex flex-col gap-5">

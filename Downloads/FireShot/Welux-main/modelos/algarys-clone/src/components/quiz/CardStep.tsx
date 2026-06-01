@@ -40,6 +40,7 @@ export default function CardStep({ config, value, onSelect }: CardStepProps) {
           <button
             key={opt.value}
             type="button"
+            aria-pressed={value === opt.value}
             onClick={() => onSelect(opt.value)}
             className={[
               "rounded-xl border p-4 text-left text-sm font-medium transition-all duration-200",

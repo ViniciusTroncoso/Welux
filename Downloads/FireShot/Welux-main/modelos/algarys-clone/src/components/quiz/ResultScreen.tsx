@@ -43,7 +43,12 @@ function CheckIcon() {
 export default function ResultScreen({ screen }: ResultScreenProps) {
   if (screen === "loading") {
     return (
-      <div className="flex flex-col items-center gap-6 py-24 text-center">
+      <div
+        role="status"
+        aria-live="polite"
+        aria-label="Analisando seu perfil"
+        className="flex flex-col items-center gap-6 py-24 text-center"
+      >
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
