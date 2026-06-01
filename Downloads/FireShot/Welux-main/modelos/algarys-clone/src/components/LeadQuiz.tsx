@@ -1,7 +1,7 @@
 // src/components/LeadQuiz.tsx
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import ProgressBar from "@/components/quiz/ProgressBar"
 import CardStep from "@/components/quiz/CardStep"
@@ -85,6 +85,7 @@ export default function LeadQuiz() {
   const [direction, setDirection] = useState(1)
   const [screen, setScreen] = useState<null | "loading" | Routing>(null)
   const [form, setForm] = useState<FormData>(INITIAL_FORM)
+  const abortRef = useRef<AbortController | null>(null)
 
   // Auto photo carousel
   useEffect(() => {
@@ -117,16 +118,22 @@ export default function LeadQuiz() {
   }
 
   async function submit() {
+    abortRef.current?.abort()
+    const controller = new AbortController()
+    abortRef.current = controller
+
     setScreen("loading")
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
+        signal: controller.signal,
       })
       const data = (await res.json()) as { routing: Routing }
       setScreen(data.routing)
-    } catch {
+    } catch (err) {
+      if (err instanceof Error && err.name === "AbortError") return
       setScreen("warm")
     }
   }
@@ -173,7 +180,7 @@ export default function LeadQuiz() {
           {PHOTOS.map((src, i) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              key={src}
+              key={i}
               src={src}
               alt=""
               loading="lazy"
