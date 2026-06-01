@@ -98,6 +98,8 @@ export default function ChatLeadForm() {
         if (done) break
 
         const lines = decoder.decode(value, { stream: true }).split("\n")
+        let chunkHadTokens = false
+
         for (const line of lines) {
           if (!line.startsWith("data: ")) continue
           const data = line.slice(6).trim()
@@ -109,15 +111,19 @@ export default function ChatLeadForm() {
             const token = parsed.choices[0]?.delta?.content ?? ""
             if (token) {
               aiContent += token
-              setMessages((prev) => {
-                const next = [...prev]
-                next[next.length - 1] = { role: "assistant", content: aiContent }
-                return next
-              })
-              // Yield to browser render cycle between tokens
-              await new Promise<void>((r) => setTimeout(r, 0))
+              chunkHadTokens = true
             }
           } catch {}
+        }
+
+        // One render + yield per chunk, not per token
+        if (chunkHadTokens) {
+          setMessages((prev) => {
+            const next = [...prev]
+            next[next.length - 1] = { role: "assistant", content: aiContent }
+            return next
+          })
+          await new Promise<void>((r) => setTimeout(r, 0))
         }
       }
 
