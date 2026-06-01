@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChatInput, ChatInputTextArea, ChatInputSubmit } from "@/components/ui/chat-input"
 import ResultScreen from "@/components/quiz/ResultScreen"
 import ContactCard from "@/components/quiz/ContactCard"
+import ChatStatusBar from "@/components/chat/ChatStatusBar"
+import ChatHeading from "@/components/chat/ChatHeading"
+import ThinkingBubble from "@/components/chat/ThinkingBubble"
 import type { Routing } from "@/lib/scoring"
 
 // ── Types ──────────────────────────────────────────────
@@ -52,31 +55,6 @@ function parseMessage(content: string): {
   }
 }
 
-// ── Sub-components ─────────────────────────────────────
-
-function WeluxAvatar() {
-  return (
-    <div className="flex-shrink-0 w-7 h-7 rounded-full border border-white/15 bg-white/8 flex items-center justify-center">
-      <span className="text-[10px] font-semibold text-primary tracking-wide">W</span>
-    </div>
-  )
-}
-
-function TypingDots() {
-  return (
-    <div className="flex items-center gap-1 px-1 py-1">
-      {[0, 1, 2].map((i) => (
-        <motion.span
-          key={i}
-          className="w-1.5 h-1.5 rounded-full bg-secondary/60 block"
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 1.1, repeat: Infinity, delay: i * 0.18, ease: "easeInOut" }}
-        />
-      ))}
-    </div>
-  )
-}
-
 // ── Main component ─────────────────────────────────────
 
 export default function ChatLeadForm() {
@@ -85,16 +63,24 @@ export default function ChatLeadForm() {
   const [isStreaming, setIsStreaming] = useState(false)
   const [screen, setScreen] = useState<null | "loading" | Routing>(null)
   const [contactFormSubmitted, setContactFormSubmitted] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
   const abortRef = useRef<AbortController | null>(null)
   const contactSubmittedRef = useRef(false)
   const chatRef = useRef<HTMLDivElement>(null)
+  const expandedRef = useRef(false)
 
-  // Scroll only within the chat container — never the window
   useEffect(() => {
     const chat = chatRef.current
     if (!chat) return
     chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" })
   }, [messages])
+
+  function expandOnFirstMessage() {
+    if (!expandedRef.current) {
+      expandedRef.current = true
+      setIsExpanded(true)
+    }
+  }
 
   async function doSubmit(history: Message[]) {
     setIsStreaming(true)
@@ -116,7 +102,6 @@ export default function ChatLeadForm() {
       const decoder = new TextDecoder()
       let aiContent = ""
 
-      // Placeholder for streaming message
       setMessages((prev) => [...prev, { role: "assistant", content: "" }])
 
       while (true) {
@@ -142,7 +127,6 @@ export default function ChatLeadForm() {
           } catch {}
         }
 
-        // One render + yield per chunk, not per token
         if (chunkHadTokens) {
           setMessages((prev) => {
             const next = [...prev]
@@ -153,12 +137,10 @@ export default function ChatLeadForm() {
         }
       }
 
-      // Detect lead completion
       if (aiContent.includes(LEAD_MARKER)) {
         const idx = aiContent.indexOf(LEAD_MARKER)
         const jsonStr = aiContent.slice(idx + LEAD_MARKER.length).trim()
 
-        // Remove the LEAD_COMPLETE line from chat — hide from user
         setMessages((prev) => {
           const next = [...prev]
           next[next.length - 1] = {
@@ -168,7 +150,6 @@ export default function ChatLeadForm() {
           return next
         })
 
-        // Short pause then transition
         await new Promise((r) => setTimeout(r, 1200))
         setScreen("loading")
 
@@ -186,7 +167,12 @@ export default function ChatLeadForm() {
         }
       }
     } catch (err) {
-      if (err instanceof Error && err.name === "AbortError") return
+      if (err instanceof Error && err.name === "AbortError") {
+        setMessages((prev) =>
+          prev[prev.length - 1]?.content === "" ? prev.slice(0, -1) : prev
+        )
+        return
+      }
       setMessages((prev) => [
         ...prev.slice(0, -1),
         {
@@ -202,6 +188,8 @@ export default function ChatLeadForm() {
   async function handleSubmit() {
     const text = input.trim()
     if (!text || isStreaming) return
+
+    expandOnFirstMessage()
 
     const userMsg: Message = { role: "user", content: text }
     const history = [...messages, userMsg]
@@ -223,176 +211,179 @@ export default function ChatLeadForm() {
     await doSubmit(history)
   }
 
-  // ── Result screen ──────────────────────────────────
+  // ── Result screen ──────────────────────────────────────────────────────────
 
   if (screen) {
     return (
-      <section id="form" className="scroll-mt-25 flex items-center justify-center py-16 px-6">
-        <ResultScreen screen={screen} />
+      <section
+        id="form"
+        className="relative flex flex-col min-h-dvh"
+        style={{
+          background: "#050505",
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 60%)",
+          }}
+        />
+        <div className="flex-1 flex items-center justify-center relative z-10 px-6">
+          <ResultScreen screen={screen} />
+        </div>
       </section>
     )
   }
 
-  // ── Chat UI ────────────────────────────────────────
+  // ── Chat UI ─────────────────────────────────────────
 
   return (
     <section
       id="form"
-      className="scroll-mt-25 relative flex flex-col items-center py-12 md:py-16 md:px-[100px]"
+      className={[
+        "scroll-mt-25 flex flex-col",
+        isExpanded ? "fixed inset-0 z-[50]" : "relative min-h-dvh",
+      ].join(" ")}
+      style={{
+        background: "#050505",
+        backgroundImage:
+          "linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px)",
+        backgroundSize: "32px 32px",
+      }}
     >
-      {/* Background glow */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center z-0"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 60%)",
+        }}
+      />
+
+      <ChatStatusBar />
+
+      <AnimatePresence>
+        {!isExpanded && <ChatHeading key="heading" />}
+      </AnimatePresence>
+
+      <div
+        ref={chatRef}
+        className="flex-1 overflow-y-auto flex flex-col gap-3 md:gap-4 px-5 md:px-12 py-4 md:py-5 relative z-10"
+        aria-live="polite"
+        aria-label="Conversa com Aria"
+        style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.06) transparent" }}
       >
-        <div
-          className="w-[220%] md:w-[900px] h-[400px] md:h-[260px] opacity-35"
-          style={{
-            background:
-              "radial-gradient(50% 50% at 50% 100%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.14) 55%, transparent 76%)",
-            transform: "rotate(-15deg)",
-          }}
-        />
-      </div>
+        <AnimatePresence initial={false}>
+          {messages.map((msg, i) => {
+            const isLast = i === messages.length - 1
+            const isStreamingThis = isStreaming && isLast && msg.role === "assistant"
 
-      <div className="section-container relative z-10 w-full max-w-2xl px-4 md:px-0">
-        {/* Header */}
-        <div className="flex flex-col gap-1 mb-6">
-          <div className="flex items-center gap-2.5">
-            <WeluxAvatar />
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-heading leading-none">Aria · Welux</span>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-[11px] text-secondary">Online agora</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Chat messages */}
-        <div
-          ref={chatRef}
-          className="flex flex-col gap-3 mb-4 overflow-y-auto pr-1"
-          style={{ maxHeight: "50vh" }}
-          aria-live="polite"
-          aria-label="Conversa com Aria"
-        >
-          <AnimatePresence initial={false}>
-            {messages.map((msg, i) => {
-              const isLast = i === messages.length - 1
-              const isStreamingThis = isStreaming && isLast && msg.role === "assistant"
-
-              // Show typing indicator while streaming but content is empty
-              if (isStreamingThis && !msg.content) {
-                return (
-                  <motion.div
-                    key={`typing-${i}`}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-end gap-2"
-                  >
-                    <WeluxAvatar />
-                    <div className="rounded-2xl rounded-bl-sm bg-white/5 border border-white/8 px-3 py-2">
-                      <TypingDots />
-                    </div>
-                  </motion.div>
-                )
-              }
-
-              if (!msg.content) return null
-
-              const { text, suggestions, showContactForm } = parseMessage(msg.content)
-              const showSuggestions =
-                suggestions.length > 0 &&
-                !isStreaming &&
-                msg.role === "assistant" &&
-                i === messages.length - 1
-              const showCard =
-                showContactForm &&
-                msg.role === "assistant" &&
-                i === messages.length - 1 &&
-                !isStreaming
-
+            if (isStreamingThis && !msg.content) {
               return (
                 <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 8 }}
+                  key={`thinking-${i}`}
+                  initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.18 }}
-                  className={`flex items-end gap-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
+                  transition={{ duration: 0.2 }}
                 >
-                  {msg.role === "assistant" && <WeluxAvatar />}
+                  <ThinkingBubble />
+                </motion.div>
+              )
+            }
 
-                  <div className="flex flex-col gap-2 max-w-[78%]">
-                    <div
-                      className={[
-                        "rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
-                        msg.role === "assistant"
-                          ? "rounded-bl-sm bg-white/5 border border-white/8 text-body"
-                          : "rounded-br-sm bg-primary text-background font-medium",
-                      ].join(" ")}
-                    >
-                      {text}
-                      {/* Blinking cursor while streaming */}
-                      {isStreamingThis && (
-                        <span className="inline-block w-[2px] h-[14px] bg-secondary/70 ml-[2px] align-middle animate-pulse" />
-                      )}
-                      {showCard && (
-                        <div className="mt-3 pt-3 border-t border-white/8">
-                          <ContactCard
-                            onSubmit={handleContactSubmit}
-                            disabled={contactFormSubmitted}
-                          />
-                        </div>
-                      )}
-                    </div>
+            if (!msg.content) return null
 
-                    {showSuggestions && (
-                      <div className="flex flex-wrap gap-1.5 pl-1">
-                        {suggestions.map((s) => (
-                          <button
-                            key={s}
-                            type="button"
-                            onClick={() => {
-                              if (isStreaming) return
-                              const userMsg: Message = { role: "user", content: s }
-                              const history = [...messages, userMsg]
-                              setMessages(history)
-                              void doSubmit(history)
-                            }}
-                            className="rounded-full border border-white/15 bg-white/4 px-3 py-1 text-xs text-secondary hover:border-white/30 hover:text-heading hover:bg-white/8 transition-all duration-150"
-                          >
-                            {s}
-                          </button>
-                        ))}
+            const { text, suggestions, showContactForm } = parseMessage(msg.content)
+            const showSuggestions =
+              suggestions.length > 0 &&
+              !isStreaming &&
+              msg.role === "assistant" &&
+              i === messages.length - 1
+            const showCard =
+              showContactForm &&
+              msg.role === "assistant" &&
+              i === messages.length - 1 &&
+              !isStreaming
+
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.18 }}
+                className={`flex flex-col gap-2 ${msg.role === "user" ? "items-end" : "items-start"}`}
+              >
+                {msg.role === "assistant" ? (
+                  <div className="border-l-2 border-white pl-5 pr-4 py-4 bg-white/[0.025] rounded-r-lg text-[17px] leading-[1.65] text-white/[0.72] max-w-[90%] md:max-w-[70%]">
+                    {text}
+                    {isStreamingThis && (
+                      <span className="inline-block w-[2px] h-[15px] bg-white/60 ml-[3px] align-middle animate-pulse" />
+                    )}
+                    {showCard && (
+                      <div className="mt-4 pt-4 border-t border-white/[0.08]">
+                        <ContactCard
+                          onSubmit={handleContactSubmit}
+                          disabled={contactFormSubmitted}
+                        />
                       </div>
                     )}
                   </div>
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
-        </div>
+                ) : (
+                  <div className="bg-white text-black px-5 py-[13px] rounded-xl rounded-br-sm text-[17px] font-semibold max-w-[80%] md:max-w-[62%]">
+                    {text}
+                  </div>
+                )}
 
-        {/* Chat input */}
+                {showSuggestions && (
+                  <div className="flex flex-wrap gap-2 pl-[2px]">
+                    {suggestions.map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => {
+                          if (isStreaming) return
+                          expandOnFirstMessage()
+                          const userMsg: Message = { role: "user", content: s }
+                          const history = [...messages, userMsg]
+                          setMessages(history)
+                          void doSubmit(history)
+                        }}
+                        className="border border-white/[0.14] px-4 py-2 font-mono text-[12px] text-white/45 rounded-sm hover:border-white/60 hover:text-white hover:bg-white/[0.06] transition-all duration-150"
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            )
+          })}
+        </AnimatePresence>
+      </div>
+
+      <div className="flex flex-col gap-[5px] px-5 md:px-12 pt-3 pb-5 md:pb-6 border-t border-white/[0.04] relative z-10 flex-shrink-0">
         <ChatInput
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onSubmit={handleSubmit}
           loading={isStreaming}
           onStop={() => abortRef.current?.abort()}
-          className="border-white/10 bg-white/4"
+          className="border-white/[0.09] bg-white/[0.02] rounded-sm"
         >
           <ChatInputTextArea
-            placeholder="Digite sua resposta..."
-            className="text-heading placeholder:text-secondary/60 bg-transparent"
+            placeholder={isStreaming ? "Aguarde..." : "Responda ou selecione acima"}
+            disabled={isStreaming}
+            className="text-white placeholder:text-white/[0.16] text-[16px] bg-transparent"
           />
-          <ChatInputSubmit />
+          <ChatInputSubmit className="bg-white text-black hover:bg-white/90 rounded-sm" />
         </ChatInput>
-
-        <p className="text-[11px] text-secondary/50 text-center mt-2.5">
-          Enter para enviar · Shift+Enter para nova linha
+        <p className="font-mono text-[9px] tracking-[2px] text-white/10 text-center uppercase">
+          Shift + Enter · Nova Linha
         </p>
       </div>
     </section>
