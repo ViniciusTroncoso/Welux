@@ -38,7 +38,7 @@ export default function Nav() {
               </a>
             ))}
           </div>
-          <button className="btn-nav hidden md:block">Entre em contato</button>
+          <a href="#form" className="btn-nav hidden md:block">Entre em contato</a>
           <button
             type="button"
             aria-label="Abrir menu"
@@ -71,7 +71,7 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
-          <button className="btn-nav-mobile">Entre em contato</button>
+          <a href="#form" onClick={() => setOpen(false)} className="btn-nav-mobile">Entre em contato</a>
         </div>
       </aside>
     </>

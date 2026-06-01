@@ -52,7 +52,7 @@ export default function LeadForm() {
   return (
     <section
       id="form"
-      className="relative overflow-hidden flex flex-col py-12 md:py-16 md:px-[100px] items-center justify-center"
+      className="scroll-mt-25 relative overflow-hidden flex flex-col py-12 md:py-16 md:px-[100px] items-center justify-center"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center z-0">
         <div

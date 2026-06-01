@@ -1,11 +1,13 @@
 import { InstagramIcon, LinkedInIcon, YouTubeIcon, WhatsAppIcon } from "@/components/icons";
-import { WHATSAPP_URL } from "@/lib/content";
+
+// TODO: temporariamente todos os links apontam para o Instagram da Welux — corrigir depois
+const WELUX_INSTAGRAM = "https://www.instagram.com/welux.com.br/";
 
 const socials = [
-  { label: "Instagram", href: "https://www.instagram.com/algarystech/", Icon: InstagramIcon },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/algarys/?originalSubdomain=br", Icon: LinkedInIcon },
-  { label: "YouTube", href: "https://www.youtube.com/channel/UCGBYEuu0v3Nm_MAy0SLGk-g", Icon: YouTubeIcon },
-  { label: "WhatsApp", href: WHATSAPP_URL, Icon: WhatsAppIcon },
+  { label: "Instagram", href: WELUX_INSTAGRAM, Icon: InstagramIcon },
+  { label: "LinkedIn", href: WELUX_INSTAGRAM, Icon: LinkedInIcon },
+  { label: "YouTube", href: WELUX_INSTAGRAM, Icon: YouTubeIcon },
+  { label: "WhatsApp", href: WELUX_INSTAGRAM, Icon: WhatsAppIcon },
 ];
 
 export default function Footer() {

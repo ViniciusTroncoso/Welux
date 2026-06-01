@@ -40,9 +40,9 @@ export default function FinalCta() {
               <br className="hidden md:block" /> o que a gente resolve na primeira <br className="md:hidden" />
               conversa.
             </h2>
-            <button className="btn-pulse bg-accent text-base md:text-lg font-medium text-black px-6 py-3 md:px-5 md:py-2.5 rounded-md w-fit cursor-pointer hover:bg-accent-hover">
+            <a href="#form" className="btn-pulse inline-block bg-accent text-base md:text-lg font-medium text-black px-6 py-3 md:px-5 md:py-2.5 rounded-md w-fit cursor-pointer hover:bg-accent-hover">
               Falar com a Welux
-            </button>
+            </a>
           </div>
         </div>
       </div>
