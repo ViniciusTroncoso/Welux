@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChatInput, ChatInputTextArea, ChatInputSubmit } from "@/components/ui/chat-input"
 import ResultScreen from "@/components/quiz/ResultScreen"
+import ContactCard from "@/components/quiz/ContactCard"
 import type { Routing } from "@/lib/scoring"
 
 // ── Types ──────────────────────────────────────────────
@@ -21,10 +22,23 @@ const OPENING_MESSAGE: Message = {
 }
 
 const SUGGEST_RE = /\[SUGGEST:\s*([^\]]+)\]\s*$/
+const CONTACT_FORM_RE = /\[CONTACT_FORM\]\s*$/
 
-function parseMessage(content: string): { text: string; suggestions: string[] } {
+function parseMessage(content: string): {
+  text: string
+  suggestions: string[]
+  showContactForm: boolean
+} {
+  if (CONTACT_FORM_RE.test(content)) {
+    return {
+      text: content.replace(CONTACT_FORM_RE, "").trim(),
+      suggestions: [],
+      showContactForm: true,
+    }
+  }
+
   const match = content.match(SUGGEST_RE)
-  if (!match) return { text: content.trim(), suggestions: [] }
+  if (!match) return { text: content.trim(), suggestions: [], showContactForm: false }
 
   const suggestions = match[1]
     .split(",")
@@ -34,6 +48,7 @@ function parseMessage(content: string): { text: string; suggestions: string[] } 
   return {
     text: content.replace(SUGGEST_RE, "").trim(),
     suggestions,
+    showContactForm: false,
   }
 }
 
@@ -69,6 +84,7 @@ export default function ChatLeadForm() {
   const [input, setInput] = useState("")
   const [isStreaming, setIsStreaming] = useState(false)
   const [screen, setScreen] = useState<null | "loading" | Routing>(null)
+  const [contactFormSubmitted, setContactFormSubmitted] = useState(false)
   const abortRef = useRef<AbortController | null>(null)
   const chatRef = useRef<HTMLDivElement>(null)
 
@@ -193,6 +209,17 @@ export default function ChatLeadForm() {
     await doSubmit(history)
   }
 
+  async function handleContactSubmit(nome: string, whatsapp: string) {
+    setContactFormSubmitted(true)
+    const userMsg: Message = {
+      role: "user",
+      content: `Meu nome é ${nome}, WhatsApp: ${whatsapp}`,
+    }
+    const history = [...messages, userMsg]
+    setMessages(history)
+    await doSubmit(history)
+  }
+
   // ── Result screen ──────────────────────────────────
 
   if (screen) {
@@ -272,12 +299,17 @@ export default function ChatLeadForm() {
 
               if (!msg.content) return null
 
-              const { text, suggestions } = parseMessage(msg.content)
+              const { text, suggestions, showContactForm } = parseMessage(msg.content)
               const showSuggestions =
                 suggestions.length > 0 &&
                 !isStreaming &&
                 msg.role === "assistant" &&
                 i === messages.length - 1
+              const showCard =
+                showContactForm &&
+                msg.role === "assistant" &&
+                i === messages.length - 1 &&
+                !isStreaming
 
               return (
                 <motion.div
@@ -302,6 +334,14 @@ export default function ChatLeadForm() {
                       {/* Blinking cursor while streaming */}
                       {isStreamingThis && (
                         <span className="inline-block w-[2px] h-[14px] bg-secondary/70 ml-[2px] align-middle animate-pulse" />
+                      )}
+                      {showCard && (
+                        <div className="mt-3 pt-3 border-t border-white/8">
+                          <ContactCard
+                            onSubmit={handleContactSubmit}
+                            disabled={contactFormSubmitted}
+                          />
+                        </div>
                       )}
                     </div>
 
