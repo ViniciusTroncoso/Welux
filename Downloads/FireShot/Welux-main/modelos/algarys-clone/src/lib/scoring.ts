@@ -45,8 +45,12 @@ export async function groqScore(lead: FormData): Promise<number> {
   if (!apiKey || !text) return 1
 
   try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
@@ -72,10 +76,15 @@ Return ONLY valid JSON: {"score": number}`,
       }),
     })
 
+    clearTimeout(timeout)
+
     if (!res.ok) return 1
     const data = await res.json()
-    const parsed = JSON.parse(data.choices[0].message.content) as { score: number }
-    return Math.min(3, Math.max(0, Number(parsed.score) ?? 1))
+
+    if (!data.choices?.[0]?.message?.content) return 1
+    const parsed = JSON.parse(data.choices[0].message.content) as { score: unknown }
+    const raw = typeof parsed.score === "number" ? parsed.score : 1
+    return Math.min(3, Math.max(0, raw))
   } catch {
     return 1
   }
