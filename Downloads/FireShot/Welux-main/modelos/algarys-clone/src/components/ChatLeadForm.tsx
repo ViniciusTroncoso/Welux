@@ -106,12 +106,17 @@ export default function ChatLeadForm() {
             const parsed = JSON.parse(data) as {
               choices: [{ delta: { content?: string } }]
             }
-            aiContent += parsed.choices[0]?.delta?.content ?? ""
-            setMessages((prev) => {
-              const next = [...prev]
-              next[next.length - 1] = { role: "assistant", content: aiContent }
-              return next
-            })
+            const token = parsed.choices[0]?.delta?.content ?? ""
+            if (token) {
+              aiContent += token
+              setMessages((prev) => {
+                const next = [...prev]
+                next[next.length - 1] = { role: "assistant", content: aiContent }
+                return next
+              })
+              // Yield to browser render cycle between tokens
+              await new Promise<void>((r) => setTimeout(r, 0))
+            }
           } catch {}
         }
       }
