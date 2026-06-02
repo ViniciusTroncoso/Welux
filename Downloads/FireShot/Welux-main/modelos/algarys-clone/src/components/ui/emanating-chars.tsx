@@ -71,7 +71,7 @@ export default function EmanatingChars() {
       spawnParticle(geo.cx, geo.cy, geo.ringRX, geo.ringRY)
     )
 
-    let rafId: number
+    let rafId: number = 0
 
     function frame(ts: number) {
       ctx!.clearRect(0, 0, W, H)
@@ -95,7 +95,7 @@ export default function EmanatingChars() {
         p.y += p.vy
         p.life += 0.005
 
-        if (p.life > p.maxLife || p.x < -20 || p.x > W + 20 || p.y < -20) {
+        if (p.life > p.maxLife || p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20) {
           Object.assign(p, spawnParticle(geo.cx, geo.cy, geo.ringRX, geo.ringRY))
           continue
         }
@@ -113,10 +113,11 @@ export default function EmanatingChars() {
     rafId = requestAnimationFrame(frame)
 
     function handleResize() {
-      W = canvas!.offsetWidth
-      H = canvas!.offsetHeight
-      canvas!.width = W
-      canvas!.height = H
+      if (!canvas) return
+      W = canvas.offsetWidth
+      H = canvas.offsetHeight
+      canvas.width = W
+      canvas.height = H
       geo.cx = W / 2
       geo.cy = H
       geo.ringRX = Math.min(W * 0.44, 420)
