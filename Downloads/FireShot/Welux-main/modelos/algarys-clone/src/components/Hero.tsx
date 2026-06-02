@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="md:min-h-[62vh] min-h-[62vh] flex items-center justify-center relative overflow-visible border-b border-accent section-px pb-[100px] md:pb-[140px]"
+      className="md:min-h-[62vh] min-h-[80vh] flex items-center justify-center relative overflow-visible border-b border-accent section-px pt-[60px] md:pt-0 pb-[130px] md:pb-[140px]"
     >
       <EmanatingChars />
 
