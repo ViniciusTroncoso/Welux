@@ -143,7 +143,7 @@ export default function PortfolioSection() {
           </div>
 
           <div className="flex items-center justify-between pt-4">
-            <div className="flex-1 flex justify-center gap-3">
+            <div className="flex-1 flex flex-wrap justify-center gap-1.5 sm:gap-3">
               {products.map((_, i) => (
                 <button
                   key={i}

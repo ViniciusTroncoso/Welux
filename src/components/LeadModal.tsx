@@ -39,13 +39,15 @@ const SELECTS = [
   },
 ] as const;
 
-const inputCls =
-  "w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-black placeholder:text-gray-400 focus:border-black focus:outline-none transition-colors";
+const inputBase =
+  "w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-black focus:outline-none transition-colors";
+const inputCls = `${inputBase} text-black placeholder:text-gray-400`;
 
 export default function LeadModal() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [sel, setSel] = useState<Record<string, string>>({});
   const closeRef = useRef<HTMLButtonElement>(null);
 
   // Open when any "Agende uma Call" CTA ([data-ab-cta="book-call"]) is clicked.
@@ -55,6 +57,7 @@ export default function LeadModal() {
       if (el?.closest('[data-ab-cta="book-call"]')) {
         e.preventDefault();
         setDone(false);
+        setSel({});
         setOpen(true);
       }
     };
@@ -186,8 +189,13 @@ export default function LeadModal() {
                   <select
                     key={s.name}
                     name={s.name}
-                    defaultValue=""
-                    className={`${inputCls} appearance-none ${s.name === "ia_implementada" ? "sm:col-span-2" : ""}`}
+                    value={sel[s.name] ?? ""}
+                    onChange={(e) =>
+                      setSel((p) => ({ ...p, [s.name]: e.target.value }))
+                    }
+                    className={`${inputBase} appearance-none [&>option]:text-black ${
+                      sel[s.name] ? "text-black" : "text-gray-400"
+                    } ${s.name === "ia_implementada" ? "sm:col-span-2" : ""}`}
                   >
                     <option value="" disabled>
                       {s.label}
