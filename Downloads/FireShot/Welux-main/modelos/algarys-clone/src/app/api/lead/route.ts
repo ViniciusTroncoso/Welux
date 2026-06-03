@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   // Rate limiting: 5 req/min por IP — protege envio de WhatsApp via Evolution
   const ip =
     req.headers.get("x-real-ip") ??
-    req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
+    req.headers.get("x-forwarded-for")?.split(",").at(0)?.trim() ??
     "unknown"
   const { allowed, retryAfter } = checkRateLimit(ip, { max: 5, windowMs: 60_000 })
   if (!allowed) {

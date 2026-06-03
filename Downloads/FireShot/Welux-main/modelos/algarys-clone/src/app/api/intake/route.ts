@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
   // Rate limiting: 5 req/min por IP — protege envio de WhatsApp via Evolution
   const ip =
     req.headers.get("x-real-ip") ??
-    req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
+    req.headers.get("x-forwarded-for")?.split(",").at(0)?.trim() ??
     "unknown"
   const { allowed, retryAfter } = checkRateLimit(ip, { max: 5, windowMs: 60_000 })
   if (!allowed) {
@@ -133,11 +133,12 @@ export async function POST(req: NextRequest) {
   if (routing !== "cold" && sdr)           await sendWhatsapp(sdr, message)
   else if (routing === "cold" && nurturing) await sendWhatsapp(nurturing, message)
 
-  if (d.whatsapp && routing !== "cold") {
+  const whatsappNum = d.whatsapp.replace(/\D/g, "")
+  if (whatsappNum.length >= 10 && routing !== "cold") {
     const welcome = routing === "hot"
       ? `Oi, ${d.nome.split(" ")[0]}! Aqui é a Welux.\n\nSeu perfil tem alto fit com nossa infraestrutura de IA. Nossa equipe já recebeu seu raio-x.\n\nEm instantes você receberá o link para agendar uma call técnica de 30 minutos com nossos engenheiros. Sem pressão, sem jargões.\n\nAria · Welux AI`
       : `Oi, ${d.nome.split(" ")[0]}! Aqui é a Welux.\n\nSeu nível de maturidade é promissor. Nossa equipe acabou de receber seu raio-x e um especialista entrará em contato em breve para validar algumas informações.\n\nAria · Welux AI`
-    await sendWhatsapp(d.whatsapp, welcome)
+    await sendWhatsapp(whatsappNum, welcome)
   }
 
   console.log("[INTAKE]", { nome: d.nome, routing, score })
