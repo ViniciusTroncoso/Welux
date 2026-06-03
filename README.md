@@ -1,49 +1,36 @@
-# Welux
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-**Software house especializada exclusivamente em IA aplicada a negócios.**
-Diagnóstico antes, engenharia por trás, resultado medido depois.
+## Getting Started
 
-- Site: [`welux.com.br`](https://welux.com.br)
-- Instagram: [@welux.com.br](https://www.instagram.com/welux.com.br/)
-- Sede: Brasília (DF)
-
----
-
-## O que a Welux faz
-
-Construímos **sistemas robustos** e soluções de **IA sob medida**, integradas à operação do cliente,
-com **ROI calculado antes de começar**. Dois serviços, por nível de maturidade:
-
-1. **Diagnóstico IA — 30 dias** — para quem quer saber onde a IA gera resultado antes de investir.
-   Diagnóstico profundo + retorno calculado com dados reais + protótipo funcionando.
-2. **Desenvolvimento Personalizado de IA** — para quem já decidiu implementar e precisa de
-   engenharia real: construção sob medida do que foi provado que funciona, medido em produção.
-
-**Método (4 etapas):** Diagnóstico → Priorização → Construção → Medição.
-
----
-
-## Repositório
-
-```
-Welux/
-├── modelos/algarys-clone/   # Site welux.com.br — Next.js 16, React 19, Tailwind v4, Framer Motion, Spline
-│   ├── src/lib/content.ts    #   copy do site (fonte da verdade do posicionamento)
-│   ├── src/components/        #   Hero, Services, Method, About, Stats, Objections, Differentials...
-│   └── src/app/api/           #   chat-lead (SDR com IA) + lead
-└── hypergestor-sdr/         # Experimentos de agente SDR
-```
-
-### Rodar o site
+First, run the development server:
 
 ```bash
-cd modelos/algarys-clone
-npm install
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
----
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-> **Histórico:** a Welux nasceu como agência de webdesign para médicos e pivotou para software house
-> de IA. Os artefatos daquela fase (docs, landings e proposta médica) foram removidos do repositório
-> para evitar confusão. O contexto completo da empresa é mantido no Obsidian (pasta `welux/`).
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

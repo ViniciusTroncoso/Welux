@@ -1,0 +1,243 @@
+{
+  "id": "ai-mvp-development",
+  "slug": "ai-mvp-development",
+  "title": "AI-Powered MVP Development",
+  "icon": "BrainCircuit",
+  "heroIcon": "AIMVPIcon",
+  "description": "Launch a production-ready AI MVP in just 2-3 weeks. Our team blends rapid prototyping with enterprise-grade AI/ML engineering to validate your idea, attract investors, and win early customers.",
+  "meta": {
+    "title": "AI-Powered MVP Development | SpeedMVPs",
+    "description": "Launch your AI MVP in 2-3 weeks. Expert AI/ML engineering, LLM integration, and production-ready deployment. Get your AI product to market fast."
+  },
+  "stats": [
+    {
+      "value": "50+",
+      "label": "AI/ML Engineers"
+    },
+    {
+      "value": "95%",
+      "label": "Client Satisfaction Rate"
+    },
+    {
+      "value": "2-3",
+      "label": "Weeks to MVP Launch"
+    },
+    {
+      "value": "100+",
+      "label": "AI Projects Delivered"
+    }
+  ],
+  "content": {
+    "title": "Transform Your Vision into AI-Powered Reality",
+    "cards": [
+      {
+        "heading": "End-to-end AI MVP Design & Architecture",
+        "bullets": [
+          "Strategic planning and technical architecture for AI products",
+          "Technology stack selection optimized for your use case",
+          "Scalable infrastructure design for future growth",
+          "Security and compliance considerations built-in"
+        ]
+      },
+      {
+        "heading": "Custom ML Model Development & Fine-tuning",
+        "bullets": [
+          "Train custom models tailored to your specific requirements",
+          "Fine-tune pre-trained models for optimal performance",
+          "Implement state-of-the-art machine learning algorithms",
+          "Continuous model improvement and optimization"
+        ]
+      },
+      {
+        "heading": "Data Pipeline & MLOps Setup",
+        "bullets": [
+          "Automated data collection and preprocessing workflows",
+          "Model training and deployment pipelines",
+          "Real-time monitoring and performance tracking",
+          "Version control for models and datasets"
+        ]
+      },
+      {
+        "heading": "Generative AI and LLM Integrations",
+        "bullets": [
+          "Integration with GPT-4, Claude, and other leading LLMs",
+          "Custom prompt engineering for optimal results",
+          "RAG (Retrieval Augmented Generation) implementations",
+          "Fine-tuned models for domain-specific applications"
+        ]
+      },
+      {
+        "heading": "Conversational AI & Chatbot Solutions",
+        "bullets": [
+          "Intelligent chatbots with natural language understanding",
+          "Multi-turn conversation management",
+          "Integration with messaging platforms and websites",
+          "Context-aware responses and personalization"
+        ]
+      },
+      {
+        "heading": "Computer Vision & Predictive Analytics",
+        "bullets": [
+          "Image and video analysis with deep learning",
+          "Object detection and classification systems",
+          "Predictive analytics dashboards with real-time insights",
+          "Automated reporting and data visualization"
+        ]
+      },
+      {
+        "heading": "LLM-Native MVPs & AI Copilots",
+        "bullets": [
+          "Design and build AI copilots that live inside your product (not just in a chat window)",
+          "Use Retrieval Augmented Generation (RAG) to ground ChatGPT, Claude, or Gemini on your private data",
+          "Implement guardrails, evaluations, and safety checks so LLMs behave predictably in production",
+          "Optimize prompts, context windows, and caching to keep latency low and API costs under control"
+        ]
+      },
+      {
+        "heading": "AI Evaluation, Observability & Governance",
+        "bullets": [
+          "Define evaluation datasets and metrics to keep model quality high over time",
+          "Set up logging and monitoring for prompts, outputs, and user feedback",
+          "Detect regressions, hallucinations, and edge cases before they impact users",
+          "Establish lightweight governance practices for responsible AI and compliance"
+        ]
+      }
+    ]
+  },
+  "deliverables": [
+    {
+      "title": "Production-ready AI MVP",
+      "subtitle": "A deployable, scalable MVP built on a modern AI stack."
+    },
+    {
+      "title": "Clean, documented codebase",
+      "subtitle": "TypeScript / Python repositories with READMEs and CI/CD."
+    },
+    {
+      "title": "Cloud deployment & MLOps",
+      "subtitle": "Automated deployment to AWS / GCP with monitoring."
+    },
+    {
+      "title": "Product demo & hand-off workshop",
+      "subtitle": "Live walkthrough and onboarding for your team."
+    },
+    {
+      "title": "30 days post-launch support",
+      "subtitle": "Bug fixes and minor tweaks as you onboard users."
+    }
+  ],
+  "services": {
+    "title": "Our AI MVP Development Services",
+    "subtitle": "Comprehensive AI solutions to bring your vision to life",
+    "items": [
+      {
+        "icon": "Lightbulb",
+        "title": "AI Strategy & Consultation",
+        "description": "Define your AI product vision, identify use cases, and create a roadmap aligned with business objectives"
+      },
+      {
+        "icon": "Code2",
+        "title": "Custom AI Development",
+        "description": "Build tailored AI solutions with machine learning models, LLM integrations, and intelligent automation"
+      },
+      {
+        "icon": "CheckCircle",
+        "title": "Rapid MVP Prototyping",
+        "description": "Validate your AI concept quickly with a functional prototype to test market fit and gather feedback"
+      },
+      {
+        "icon": "BrainCircuit",
+        "title": "LLM & Generative AI",
+        "description": "Integrate GPT, Claude, and custom LLMs for chatbots, content generation, and intelligent assistants"
+      },
+      {
+        "icon": "Wrench",
+        "title": "MLOps & Deployment",
+        "description": "Set up automated pipelines, model monitoring, and scalable infrastructure for production AI systems"
+      },
+      {
+        "icon": "RefreshCw",
+        "title": "AI Model Fine-tuning",
+        "description": "Optimize pre-trained models for your specific use case to improve accuracy and performance"
+      }
+    ]
+  },
+  "differentiators": {
+    "title": "Why Choose SpeedMVPs for AI Development",
+    "subtitle": "",
+    "items": [
+      {
+        "heading": "AI-Native Expertise",
+        "description": "Our team specializes in cutting-edge AI technologies including LLMs, machine learning, and generative AI",
+        "image": "/Differentiators/image.webp"
+      },
+      {
+        "heading": "Rapid Time to Market",
+        "description": "Launch your AI MVP in 2-3 weeks with our streamlined development process and proven frameworks",
+        "image": "/Differentiators/image-2.webp"
+      },
+      {
+        "heading": "Production-Grade Quality",
+        "description": "Enterprise-level code quality, security, and scalability built into every AI solution we deliver",
+        "image": "/Differentiators/image-3.webp"
+      },
+      {
+        "heading": "End-to-End Support",
+        "description": "From ideation to deployment and beyond, we provide comprehensive support throughout your AI journey",
+        "image": "/Differentiators/image.webp"
+      },
+      {
+        "heading": "Cost-Effective Solutions",
+        "description": "Get enterprise-grade AI development at startup-friendly prices without compromising on quality",
+        "image": "/Differentiators/image-2.webp"
+      },
+      {
+        "heading": "Proven Track Record",
+        "description": "Successfully delivered 100+ AI projects for startups and enterprises across various industries",
+        "image": "/Differentiators/image-3.webp"
+      }
+    ]
+  },
+  "faq": {
+    "title": "AI MVP Development FAQ",
+    "items": [
+      {
+        "question": "How long does it take to build an AI MVP?",
+        "answer": "We can deliver a production-ready AI MVP in 2-3 weeks. The timeline depends on the complexity of your AI features, data requirements, and integration needs. We follow an agile approach to ensure rapid delivery without compromising quality."
+      },
+      {
+        "question": "What AI technologies do you work with?",
+        "answer": "We specialize in modern AI technologies including OpenAI GPT, Claude, custom LLMs, TensorFlow, PyTorch, Hugging Face, LangChain, and various machine learning frameworks. We select the best technology stack based on your specific requirements."
+      },
+      {
+        "question": "Do I need my own data to build an AI MVP?",
+        "answer": "Not necessarily. We can work with pre-trained models, public datasets, or synthetic data for initial prototypes. However, having domain-specific data will significantly improve the AI's performance and accuracy for your use case."
+      },
+      {
+        "question": "How much does AI MVP development cost?",
+        "answer": "Costs vary based on complexity, features, and AI model requirements. A typical AI MVP ranges from $15,000 to $50,000. We offer transparent pricing and can provide a detailed estimate after understanding your specific needs."
+      },
+      {
+        "question": "Will I own the AI models and code?",
+        "answer": "Yes, you will have full ownership of all custom code, models, and intellectual property we develop for your project. We provide complete source code, documentation, and deployment instructions."
+      },
+      {
+        "question": "How is SpeedMVPs different from freelancers, generic agencies, or no-code tools?",
+        "answer": "Freelancers and generic agencies can write code, but they rarely specialize in AI/LLMs end-to-end—from data and models to UX, evaluation, and MLOps. No-code tools are fantastic for quick experiments but often break down when you need scale, complex workflows, or deep integrations. SpeedMVPs is an AI-native team: we ship production-ready AI MVPs in 2–3 weeks using modern stacks (Next.js, Node/Python, Vercel/AWS, OpenAI/Claude/Gemini, and open-source models), with clean architecture that your own engineers can extend later."
+      },
+      {
+        "question": "Can you integrate models like ChatGPT, Claude, or Gemini into my MVP?",
+        "answer": "Yes. We work daily with leading LLM providers including OpenAI (ChatGPT/GPT‑4), Anthropic (Claude), and Google (Gemini), as well as open‑source models when appropriate. We help you choose the right model for your use case, implement Retrieval Augmented Generation (RAG) over your private data, and design prompts, caching, and evaluation so your AI features are fast, safe, and cost‑effective."
+      },
+      {
+        "question": "Will the AI MVP be ready for real users or just a demo?",
+        "answer": "Our goal is always a production‑ready MVP, not a throwaway demo. That means real authentication, basic role management, deployment pipelines, monitoring, and error handling in place. You should be comfortable inviting design partners, early customers, or internal teams to use the product as soon as we hand it over, while still having a clear roadmap for future iterations."
+      }
+    ]
+  },
+  "relatedServices": [
+    "integrate-ai-existing-software",
+    "ai-model-development",
+    "ai-consulting-services"
+  ]
+}
