@@ -17,7 +17,7 @@ export default function CtaSection() {
             globalmente.
           </p>
           <div className="mt-8 flex justify-center">
-            <button className="inline-flex items-center justify-center gap-2 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-sm px-6 py-2.5 rounded-lg">
+            <button data-ab-cta="book-call" className="inline-flex items-center justify-center gap-2 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-sm px-6 py-2.5 rounded-lg">
               Agende uma Call
             </button>
           </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import AbTracker from "@/components/AbTracker";
 
 const generalSans = localFont({
   src: [
@@ -43,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={generalSans.variable}>
       <body className="font-sans antialiased bg-white text-[#0a0a0a]">
+        <AbTracker />
         {children}
       </body>
     </html>
