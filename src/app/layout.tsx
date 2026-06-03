@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import AbTracker from "@/components/AbTracker";
+import LeadModal from "@/components/LeadModal";
 
 const generalSans = localFont({
   src: [
@@ -15,19 +16,11 @@ const generalSans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://speedmvps.com"),
+  metadataBase: new URL("https://welux-beta.vercel.app"),
   title: "Welux — Software House",
   description:
     "Welux é uma software house que constrói produtos digitais premium e MVPs de alta conversão.",
-  icons: {
-    icon: [
-      { url: "/seo/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/seo/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/seo/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-    ],
-    apple: "/seo/apple-touch-icon.png",
-  },
-  manifest: "/seo/site.webmanifest",
+  // Favicon is provided by src/app/icon.svg (Welux WL monogram).
   openGraph: {
     title: "Welux — Software House",
     description:
@@ -45,6 +38,7 @@ export default function RootLayout({
     <html lang="en" className={generalSans.variable}>
       <body className="font-sans antialiased bg-white text-[#0a0a0a]">
         <AbTracker />
+        <LeadModal />
         {children}
       </body>
     </html>
