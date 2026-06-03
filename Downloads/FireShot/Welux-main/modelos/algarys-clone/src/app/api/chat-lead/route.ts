@@ -67,7 +67,10 @@ interface ChatMessage {
 
 export async function POST(req: NextRequest) {
   // Rate limiting: 20 req/min por IP — protege custo Groq
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown"
+  const ip =
+    req.headers.get("x-real-ip") ??
+    req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
+    "unknown"
   const { allowed, retryAfter } = checkRateLimit(ip, { max: 20, windowMs: 60_000 })
   if (!allowed) {
     return new Response("Too Many Requests", {
@@ -89,8 +92,10 @@ export async function POST(req: NextRequest) {
       .map((m: unknown) => {
         if (typeof m !== "object" || m === null) throw new Error("invalid_item")
         const msg = m as Record<string, unknown>
-        const role = msg.role === "assistant" ? "assistant" : "user"
-        const content = String(msg.content ?? "").slice(0, 2000) // máx 2k chars
+        if (msg.role !== "user" && msg.role !== "assistant") throw new Error("invalid_role")
+        const role = msg.role as "user" | "assistant"
+        const content = String(msg.content ?? "").trim().slice(0, 2000) // máx 2k chars
+        if (content.length === 0) throw new Error("empty_content")
         return { role, content } as ChatMessage
       })
   } catch {
@@ -102,23 +107,40 @@ export async function POST(req: NextRequest) {
     return new Response("GROQ_API_KEY not configured", { status: 500 })
   }
 
-  const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "llama-3.1-8b-instant",
-      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-      stream: true,
-      max_tokens: 400,
-      temperature: 0.72,
-    }),
-  })
+  const abortController = new AbortController()
+  const timeoutId = setTimeout(() => abortController.abort(), 25_000)
+
+  let groqRes: Response
+  try {
+    groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      signal: abortController.signal,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "llama-3.1-8b-instant",
+        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+        stream: true,
+        max_tokens: 400,
+        temperature: 0.72,
+      }),
+    })
+  } catch (err) {
+    clearTimeout(timeoutId)
+    if (err instanceof Error && err.name === "AbortError") {
+      return new Response("upstream_timeout", { status: 504 })
+    }
+    return new Response("upstream_error", { status: 502 })
+  } finally {
+    clearTimeout(timeoutId)
+  }
 
   if (!groqRes.ok || !groqRes.body) {
-    return new Response("Groq API error", { status: 502 })
+    const detail = await groqRes.text().catch(() => "(unreadable)")
+    console.error(`[GROQ_ERROR] ${groqRes.status}:`, detail)
+    return new Response("upstream_error", { status: 502 })
   }
 
   return new Response(groqRes.body, {
