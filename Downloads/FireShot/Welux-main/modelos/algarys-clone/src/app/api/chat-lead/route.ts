@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server"
+import { checkRateLimit } from "@/lib/rate-limit"
 
 const SYSTEM_PROMPT = `Você é Aria, SDR sênior da Welux — consultoria brasileira de implementação de IA para operações empresariais. Sua missão: conduzir um diagnóstico conversacional genuíno para entender se a Welux pode gerar valor real para o prospect.
 
@@ -65,10 +66,33 @@ interface ChatMessage {
 }
 
 export async function POST(req: NextRequest) {
+  // Rate limiting: 20 req/min por IP — protege custo Groq
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown"
+  const { allowed, retryAfter } = checkRateLimit(ip, { max: 20, windowMs: 60_000 })
+  if (!allowed) {
+    return new Response("Too Many Requests", {
+      status: 429,
+      headers: { "Retry-After": String(retryAfter) },
+    })
+  }
+
   let messages: ChatMessage[]
   try {
-    const body = await req.json() as { messages: ChatMessage[] }
+    const body = (await req.json()) as { messages: unknown }
+
+    if (!Array.isArray(body.messages) || body.messages.length === 0) {
+      return new Response("invalid_messages", { status: 400 })
+    }
+
     messages = body.messages
+      .slice(-20) // máx 20 mensagens históricas
+      .map((m: unknown) => {
+        if (typeof m !== "object" || m === null) throw new Error("invalid_item")
+        const msg = m as Record<string, unknown>
+        const role = msg.role === "assistant" ? "assistant" : "user"
+        const content = String(msg.content ?? "").slice(0, 2000) // máx 2k chars
+        return { role, content } as ChatMessage
+      })
   } catch {
     return new Response("invalid_json", { status: 400 })
   }
