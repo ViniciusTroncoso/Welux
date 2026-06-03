@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import type { Routing } from "@/lib/scoring"
-
-interface IntakeData {
-  cargoRole:  string   // hot_founder | warm_founder | warm_director | cold_operator
-  dor:        string   // vendas | custo | retencao | dados
-  maturidade: string   // crm | planilhas | manual
-  orcamento:  string   // above15k | 5k-15k | mvp | none
-  nome:       string
-  email:      string
-  whatsapp:   string
-}
+import { checkRateLimit } from "@/lib/rate-limit"
+import { IntakeSchema, type IntakeData } from "@/lib/schemas"
 
 // ── Scoring ───────────────────────────────────────────────────────────────────
 
@@ -77,7 +69,7 @@ function buildWaMessage(d: IntakeData, routing: Routing, score: number): string 
   ].join("\n")
 }
 
-async function sendWhatsapp(phone: string, text: string) {
+async function sendWhatsapp(phone: string, text: string): Promise<void> {
   const url = process.env.EVOLUTION_API_URL
   const key = process.env.EVOLUTION_API_KEY
   const instance = process.env.EVOLUTION_INSTANCE
@@ -85,19 +77,51 @@ async function sendWhatsapp(phone: string, text: string) {
 
   const n = phone.replace(/\D/g, "")
   const num = n.startsWith("55") ? n : `55${n}`
+
+  if (!/^55\d{10,11}$/.test(num)) {
+    console.warn("[WHATSAPP] Número inválido descartado:", num.slice(0, 6) + "***")
+    return
+  }
+
   await fetch(`${url}/message/sendText/${instance}`, {
     method: "POST",
     headers: { apikey: key, "Content-Type": "application/json" },
     body: JSON.stringify({ number: num, text }),
-  }).catch(err => console.error("[EVOLUTION_ERROR]", err))
+  }).catch((err: unknown) => {
+    const msg = err instanceof Error ? err.message : "evolution_error"
+    console.error("[EVOLUTION_ERROR]", msg)
+  })
 }
 
 // ── Handler ───────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  // Rate limiting: 5 req/min por IP — protege envio de WhatsApp via Evolution
+  const ip =
+    req.headers.get("x-real-ip") ??
+    req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
+    "unknown"
+  const { allowed, retryAfter } = checkRateLimit(ip, { max: 5, windowMs: 60_000 })
+  if (!allowed) {
+    const res = NextResponse.json({ error: "Too Many Requests" }, { status: 429 })
+    res.headers.set("Retry-After", String(retryAfter))
+    return res
+  }
+
   let d: IntakeData
-  try { d = (await req.json()) as IntakeData }
-  catch { return NextResponse.json({ error: "invalid_json" }, { status: 400 }) }
+  try {
+    const body = await req.json()
+    const result = IntakeSchema.safeParse(body)
+    if (!result.success) {
+      return NextResponse.json(
+        { error: "validation_error", details: result.error.flatten() },
+        { status: 400 }
+      )
+    }
+    d = result.data
+  } catch {
+    return NextResponse.json({ error: "invalid_json" }, { status: 400 })
+  }
 
   const score   = localScore(d)
   const routing = getRouting(d, score)
@@ -109,7 +133,6 @@ export async function POST(req: NextRequest) {
   if (routing !== "cold" && sdr)           await sendWhatsapp(sdr, message)
   else if (routing === "cold" && nurturing) await sendWhatsapp(nurturing, message)
 
-  // Mensagem de boas-vindas para o próprio lead (WhatsApp agora disponível)
   if (d.whatsapp && routing !== "cold") {
     const welcome = routing === "hot"
       ? `Oi, ${d.nome.split(" ")[0]}! Aqui é a Welux.\n\nSeu perfil tem alto fit com nossa infraestrutura de IA. Nossa equipe já recebeu seu raio-x.\n\nEm instantes você receberá o link para agendar uma call técnica de 30 minutos com nossos engenheiros. Sem pressão, sem jargões.\n\nAria · Welux AI`
