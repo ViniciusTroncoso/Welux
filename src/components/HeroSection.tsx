@@ -36,7 +36,7 @@ export default function HeroSection() {
               conquistar os primeiros clientes.
             </p>
             <div>
-              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 text-sm font-medium px-6 py-2.5 h-auto">
+              <button data-ab-cta="book-call" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 text-sm font-medium px-6 py-2.5 h-auto">
                 Conte sua Ideia
                 <ArrowRight className="lucide lucide-arrow-right ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
