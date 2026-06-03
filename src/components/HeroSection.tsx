@@ -8,6 +8,16 @@ export default function HeroSection() {
       className="bg-black min-h-screen flex items-center text-white relative overflow-hidden px-4 sm:px-6"
     >
       <div className="absolute inset-0 w-full h-full z-0">
+        <video
+          loop
+          autoPlay
+          muted
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/videos/hero-section-video.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/40 z-10"></div>
       </div>
       <div className="max-w-7xl mx-auto pt-20 sm:pt-28 pb-16 w-full relative z-20">
