@@ -9,20 +9,21 @@ function getVariant(): "a" | "b" {
 
 function send(event: "exposure" | "conversion") {
   const variant = getVariant();
-  const payload = JSON.stringify({ variant, event });
-  // keepalive so the request survives navigation on CTA click
   fetch("/api/track", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: payload,
+    body: JSON.stringify({ variant, event }),
     keepalive: true,
   }).catch(() => {});
 }
 
-/** Fires an exposure once per session and a conversion when a [data-ab-cta] element is clicked. */
+/**
+ * Fires an exposure once per session on the A/B homepage.
+ * The conversion for variant B is fired by LeadModal on form submit (a real lead),
+ * keeping it comparable to variant A (whose conversion is also the lead form submit).
+ */
 export default function AbTracker() {
   useEffect(() => {
-    // Only track the A/B homepage (variant B). Utility pages like /ab-stats must not log exposures.
     if (window.location.pathname !== "/") return;
     try {
       if (!sessionStorage.getItem("ab-exposed")) {
@@ -32,15 +33,6 @@ export default function AbTracker() {
     } catch {
       send("exposure");
     }
-
-    const onClick = (e: MouseEvent) => {
-      const el = e.target as HTMLElement | null;
-      if (el && el.closest("[data-ab-cta]")) {
-        send("conversion");
-      }
-    };
-    document.addEventListener("click", onClick, { capture: true });
-    return () => document.removeEventListener("click", onClick, { capture: true });
   }, []);
 
   return null;
