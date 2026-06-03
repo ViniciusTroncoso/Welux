@@ -63,7 +63,7 @@ export default function EmanatingChars() {
       W = w
       H = h
       cx = W / 2
-      cy = H  // sol na base — atrás do chat card
+      cy = H * 0.82  // sol na base — atrás do chat card
       canvas!.width = W
       canvas!.height = H
       particles = Array.from({ length: 120 }, () => spawnParticle(cx, cy))

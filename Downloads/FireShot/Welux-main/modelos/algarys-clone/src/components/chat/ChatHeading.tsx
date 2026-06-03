@@ -11,7 +11,7 @@ export default function ChatHeading({
 }: ChatHeadingProps) {
   return (
     <motion.div
-      className="px-5 md:px-12 pt-7 pb-4 flex-shrink-0 relative z-10 overflow-hidden"
+      className="px-5 md:px-12 pt-7 pb-[46px] flex-shrink-0 relative z-10 overflow-hidden"
       initial={{ opacity: 1, height: "auto" }}
       exit={{
         opacity: 0,
@@ -24,9 +24,6 @@ export default function ChatHeading({
       <h2 className="text-[clamp(28px,4.5vw,52px)] font-light tracking-[-1.5px] leading-[1.05] text-white">
         Diagnóstico de IA
       </h2>
-      <p className="font-mono text-[10px] tracking-[2.5px] text-white/20 uppercase mt-2">
-        {subtext}
-      </p>
     </motion.div>
   )
 }

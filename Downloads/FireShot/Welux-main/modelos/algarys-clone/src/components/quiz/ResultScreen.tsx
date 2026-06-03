@@ -10,19 +10,19 @@ interface ResultScreenProps {
 
 const CONTENT = {
   hot: {
-    heading: "Tudo certo.",
-    body: "Nossa equipe recebeu seu perfil e entra em contato pelo WhatsApp em até 5 minutos.",
-    detail: "Deixe o celular por perto.",
+    heading: "Alto fit identificado.",
+    body: "Seu perfil passou pelo filtro. Nossa equipe recebeu seu raio-x e você receberá o link de agendamento no WhatsApp em instantes.",
+    detail: "Call técnica de 30 min · sem pressão · sem jargões.",
   },
   warm: {
-    heading: "Recebemos seu contato.",
-    body: "Você será chamado ainda hoje pelo nosso time.",
+    heading: "Perfil promissor.",
+    body: "Seu nível de maturidade é sólido. Um especialista da Welux vai validar algumas informações com você pelo WhatsApp ainda hoje.",
     detail: "Fique de olho no WhatsApp.",
   },
   cold: {
-    heading: "Obrigado pelo interesse.",
-    body: "Antes de falar com a gente, preparamos um diagnóstico gratuito de IA para operações.",
-    detail: "Enviamos o material no WhatsApp que você informou.",
+    heading: "Sua operação ainda não está pronta.",
+    body: "Pela análise do seu raio-x, implementar IA agora não traria o ROI ideal — você estaria rasgando dinheiro antes de ter os processos organizados.",
+    detail: "Enviamos um guia de organização de processos no seu WhatsApp. Esse é o primeiro passo real.",
   },
 }
 

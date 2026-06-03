@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChatInput, ChatInputTextArea, ChatInputSubmit } from "@/components/ui/chat-input"
 import ResultScreen from "@/components/quiz/ResultScreen"
 import ContactCard from "@/components/quiz/ContactCard"
-import ChatStatusBar from "@/components/chat/ChatStatusBar"
 import ChatHeading from "@/components/chat/ChatHeading"
 import ThinkingBubble from "@/components/chat/ThinkingBubble"
 import type { Routing } from "@/lib/scoring"
@@ -210,13 +209,12 @@ export default function ChatLeadForm({ inHero = false }: { inHero?: boolean }) {
 
   const cardInner = (
     <>
-      <ChatStatusBar />
       <AnimatePresence>
         {headingVisible && <ChatHeading key="heading" />}
       </AnimatePresence>
       <div
         ref={chatRef}
-        className="flex-1 overflow-y-auto flex flex-col gap-3 md:gap-4 px-5 md:px-6 py-4 md:py-5"
+        className={`relative z-10 flex-1 min-h-0 overflow-y-auto flex flex-col gap-3 md:gap-4 px-5 md:px-6 pb-[34px] md:pb-[34px] ${isExpanded && inHero ? "pt-14" : "pt-4 md:pt-5"}`}
         aria-live="polite"
         aria-label="Conversa com Aria"
         style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.06) transparent" }}
@@ -248,7 +246,7 @@ export default function ChatLeadForm({ inHero = false }: { inHero?: boolean }) {
                 className={`flex flex-col gap-2 ${msg.role === "user" ? "items-end" : "items-start"}`}
               >
                 {msg.role === "assistant" ? (
-                  <div className="border-l-2 border-white pl-5 pr-4 py-4 bg-white/[0.025] rounded-r-lg text-[17px] leading-[1.65] text-white/[0.72] max-w-[90%]">
+                  <div className="border-l-2 border-white pl-5 pr-4 py-4 bg-white/[0.025] rounded-r-lg text-[14px] leading-[1.65] text-white/[0.72] max-w-[90%]">
                     {text}
                     {isStreamingThis && <span className="inline-block w-[2px] h-[15px] bg-white/60 ml-[3px] align-middle animate-pulse" />}
                     {showCard && (
@@ -258,7 +256,7 @@ export default function ChatLeadForm({ inHero = false }: { inHero?: boolean }) {
                     )}
                   </div>
                 ) : (
-                  <div className="bg-white text-black px-5 py-[13px] rounded-xl rounded-br-sm text-[17px] font-semibold max-w-[80%]">
+                  <div className="bg-white text-black px-5 py-[13px] rounded-xl rounded-br-sm text-[14px] font-semibold max-w-[80%]">
                     {text}
                   </div>
                 )}
@@ -288,7 +286,7 @@ export default function ChatLeadForm({ inHero = false }: { inHero?: boolean }) {
           })}
         </AnimatePresence>
       </div>
-      <div className="flex flex-col gap-[5px] px-5 md:px-6 pt-3 pb-5 md:pb-5 border-t border-white/[0.04] flex-shrink-0">
+      <div className="relative z-10 flex flex-col gap-[5px] px-5 md:px-6 pt-3 pb-5 md:pb-5 border-t border-white/[0.04] flex-shrink-0">
         <ChatInput
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -304,9 +302,6 @@ export default function ChatLeadForm({ inHero = false }: { inHero?: boolean }) {
           />
           <ChatInputSubmit className="bg-white text-black hover:bg-white/90 rounded-sm" />
         </ChatInput>
-        <p className="font-mono text-[9px] tracking-[2px] text-white/10 text-center uppercase">
-          Shift + Enter · Nova Linha
-        </p>
       </div>
     </>
   )
@@ -325,11 +320,7 @@ export default function ChatLeadForm({ inHero = false }: { inHero?: boolean }) {
         >
           ×
         </button>
-        <div className="flex flex-col flex-1 min-h-0 relative z-10">
-          <div className="flex flex-col flex-1 min-h-0 w-full">
-            {cardInner}
-          </div>
-        </div>
+        {cardInner}
       </section>
     )
   }

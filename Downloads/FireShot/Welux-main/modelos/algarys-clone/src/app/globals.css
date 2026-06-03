@@ -54,8 +54,8 @@ body {
    ============================================================ */
 @layer utilities {
   /* layout */
-  .section-px { padding-left: 1.5rem; padding-right: 1.5rem; }
-  @media (min-width: 768px) { .section-px { padding-left: 6.25rem; padding-right: 6.25rem; } }
+  .section-px { padding-left: 2rem; padding-right: 2rem; }
+  @media (min-width: 768px) { .section-px { padding-left: 8rem; padding-right: 8rem; } }
   .section-container,
   .container-max { width: 100%; max-width: 1312px; margin-left: auto; margin-right: auto; }
   .max-w-container { max-width: 1312px; }
