@@ -32,7 +32,7 @@ export default async function AbStatsPage() {
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-medium mb-2">Teste A/B — Conversão por variante</h1>
         <p className="text-gray-600 mb-8">
-          Conversão = clique no CTA principal (&quot;Agende uma Call&quot; / contato). Atualiza a cada carregamento.
+          Conversão = envio do formulário de contato (lead). Atualiza a cada carregamento.
         </p>
 
         {"error" in data ? (
