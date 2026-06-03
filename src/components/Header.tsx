@@ -77,7 +77,7 @@ export default function Header() {
 
             <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6 lg:ml-8">
               <div className="hidden lg:block">
-                <button className="inline-flex items-center justify-center bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-[18px] sm:text-sm px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg">
+                <button data-ab-cta="book-call" className="inline-flex items-center justify-center bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-[18px] sm:text-sm px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg">
                   Agende uma Call
                 </button>
               </div>
@@ -110,7 +110,7 @@ export default function Header() {
                 {label}
               </button>
             ))}
-            <button className="inline-flex items-center justify-center bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-sm px-6 py-2.5 rounded-lg">
+            <button data-ab-cta="book-call" className="inline-flex items-center justify-center bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-sm px-6 py-2.5 rounded-lg">
               Agende uma Call
             </button>
           </div>
