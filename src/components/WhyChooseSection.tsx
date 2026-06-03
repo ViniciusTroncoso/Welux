@@ -4,39 +4,39 @@ import { useEffect, useRef, useState } from 'react';
 
 const items = [
   {
-    heading: 'AI-Native Expertise',
+    heading: 'Expertise Nativa em IA',
     description:
-      'Our team specializes in cutting-edge AI technologies including LLMs, machine learning, and generative AI',
+      'Nossa equipe é especializada em tecnologias de IA de ponta, incluindo LLMs, machine learning e IA generativa',
     image: '/Differentiators/image.webp',
   },
   {
-    heading: 'Rapid Time to Market',
+    heading: 'Lançamento Rápido no Mercado',
     description:
-      'Launch your AI MVP in 2-3 weeks with our streamlined development process and proven frameworks',
+      'Lance seu MVP de IA em 2 a 3 semanas com nosso processo de desenvolvimento ágil e frameworks comprovados',
     image: '/Differentiators/image-2.webp',
   },
   {
-    heading: 'Production-Grade Quality',
+    heading: 'Qualidade de Nível Produção',
     description:
-      'Enterprise-level code quality, security, and scalability built into every AI solution we deliver',
+      'Qualidade de código, segurança e escalabilidade de nível enterprise em cada solução de IA que entregamos',
     image: '/Differentiators/image-3.webp',
   },
   {
-    heading: 'End-to-End Support',
+    heading: 'Suporte de Ponta a Ponta',
     description:
-      'From ideation to deployment and beyond, we provide comprehensive support throughout your AI journey',
+      'Da ideia à implantação e além, oferecemos suporte completo durante toda a sua jornada de IA',
     image: '/Differentiators/image.webp',
   },
   {
-    heading: 'Cost-Effective Solutions',
+    heading: 'Soluções com Bom Custo-Benefício',
     description:
-      'Get enterprise-grade AI development at startup-friendly prices without compromising on quality',
+      'Tenha desenvolvimento de IA de nível enterprise a preços acessíveis para startups, sem abrir mão da qualidade',
     image: '/Differentiators/image-2.webp',
   },
   {
-    heading: 'Proven Track Record',
+    heading: 'Histórico Comprovado',
     description:
-      'Successfully delivered 100+ AI projects for startups and enterprises across various industries',
+      'Mais de 100 projetos de IA entregues com sucesso para startups e grandes empresas de diversos setores',
     image: '/Differentiators/image-3.webp',
   },
 ];
@@ -97,7 +97,7 @@ export default function WhyChooseSection() {
           <div className="mb-10 sm:mb-16 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
               <h2 className="text-[32px] sm:text-[36px] md:text-[40px] font-medium text-gray-900 mb-2 font-general-sans">
-                Why Choose SpeedMVPs for AI Development
+                Por que escolher a Welux para Desenvolvimento de IA
               </h2>
               <p className="text-[18px] sm:text-lg md:text-xl font-normal text-gray-600 max-w-3xl font-general-sans">
                 <span className="text-green-700 font-semibold"></span>
@@ -148,7 +148,7 @@ export default function WhyChooseSection() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-10">
             <h2 className="text-[32px] font-medium text-gray-900 mb-2 font-general-sans">
-              Why Choose SpeedMVPs for AI Development
+              Por que escolher a Welux para Desenvolvimento de IA
             </h2>
             <p className="text-[18px] font-normal text-gray-600 font-general-sans">
               <span className="text-green-600 font-semibold"></span>

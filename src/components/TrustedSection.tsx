@@ -26,13 +26,14 @@ export default function TrustedSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-left mb-10 sm:mb-16">
           <h3 className="text-[32px] sm:text-[36px] md:text-[40px] font-medium text-gray-900 mb-2 font-general-sans">
-            Trusted by Global Companies Building AI Products
+            Empresas globais que constroem produtos de IA confiam na gente
           </h3>
           <p className="text-[18px] sm:text-lg md:text-xl font-normal text-gray-600 max-w-4xl font-general-sans">
-            We&apos;ve helped startups and enterprises worldwide transform their AI
-            ideas into production-ready MVPs in 2–3 weeks. From fintech platforms
-            to AI assistants, our global MVP development services have launched
-            18+ AI products serving users across the US, Europe, and Asia.
+            Ajudamos startups e empresas do mundo todo a transformar ideias de IA
+            em MVPs prontos para produção em 2–3 semanas. De plataformas de
+            fintech a assistentes de IA, nossos serviços globais de
+            desenvolvimento de MVP já lançaram mais de 18 produtos de IA usados
+            por pessoas nos EUA, Europa e Ásia.
           </p>
         </div>
         <div className="relative w-full overflow-hidden">

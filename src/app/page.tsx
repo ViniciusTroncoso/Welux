@@ -9,7 +9,6 @@ import TrustedSection from "@/components/TrustedSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import ExploreSection from "@/components/ExploreSection";
 import CtaSection from "@/components/CtaSection";
-import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 
 export default function Home() {
@@ -26,7 +25,6 @@ export default function Home() {
       <PortfolioSection />
       <ExploreSection />
       <CtaSection />
-      <Footer />
       <CookieBanner />
     </div>
   );

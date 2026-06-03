@@ -44,11 +44,11 @@ export default function Footer() {
                       width="44"
                     />
                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                      US Office
+                      Escritório EUA
                     </span>
                   </div>
                   <p className="text-black text-sm leading-6 mb-4">
-                    Headquarters
+                    Sede
                     <br />
                     Loxahatchee, FL 33470, USA
                   </p>
@@ -76,7 +76,7 @@ export default function Footer() {
                       width="44"
                     />
                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                      India Office
+                      Escritório Índia
                     </span>
                   </div>
                   <p className="text-black text-sm leading-6 mb-4">
@@ -108,7 +108,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-col md:flex-row justify-center items-center gap-6 bg-transparent md:bg-gray-50 py-0 md:py-6 px-0 md:px-8 mb-16">
             <span className="hidden md:block text-gray-900 font-medium text-lg">
-              Follow Us on Social Media
+              Siga-nos nas Redes Sociais
             </span>
             <div className="flex items-center gap-2 md:gap-4">
               <a
@@ -275,26 +275,26 @@ export default function Footer() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div>
-              <h3 className="text-gray-900 font-medium text-base mb-6">Company</h3>
+              <h3 className="text-gray-900 font-medium text-base mb-6">Empresa</h3>
               <ul className="space-y-2">
                 <li>
                   <a
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/services"
                   >
-                    Services
+                    Serviços
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
                 <li>
                   <button className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group">
-                    Our Process
+                    Nosso Processo
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </button>
                 </li>
                 <li>
                   <button className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group">
-                    Portfolio
+                    Portfólio
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </button>
                 </li>
@@ -303,7 +303,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/technologies"
                   >
-                    Technologies
+                    Tecnologias
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -312,13 +312,13 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/industries"
                   >
-                    Industries
+                    Setores
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
                 <li>
                   <button className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group">
-                    Testimonial
+                    Depoimentos
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </button>
                 </li>
@@ -327,7 +327,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/about"
                   >
-                    About us
+                    Sobre nós
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -345,14 +345,14 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/contact"
                   >
-                    Contact us
+                    Fale conosco
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="text-gray-900 font-medium text-base mb-6">Knowledge Center</h3>
+              <h3 className="text-gray-900 font-medium text-base mb-6">Central de Conhecimento</h3>
               <ul className="space-y-2">
                 <li>
                   <a
@@ -368,7 +368,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/resources"
                   >
-                    Resources
+                    Recursos
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -377,7 +377,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/case-studies"
                   >
-                    Case Studies
+                    Cases
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -386,7 +386,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/technical-deep-dives"
                   >
-                    Technical Deep-Dives
+                    Análises Técnicas Aprofundadas
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -395,7 +395,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/compare"
                   >
-                    Comparisons
+                    Comparações
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -404,7 +404,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/industry-use-cases"
                   >
-                    Industry Use Cases
+                    Casos de Uso por Setor
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -413,7 +413,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/ai-mvp-development"
                   >
-                    Global AI MVP Development Agency
+                    Agência Global de Desenvolvimento de MVP com IA
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -422,7 +422,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/services/ai-mvp-development"
                   >
-                    AI MVP Development Services
+                    Serviços de Desenvolvimento de MVP com IA
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -431,21 +431,21 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/ai-product-development"
                   >
-                    AI Product Development
+                    Desenvolvimento de Produtos com IA
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="text-gray-900 font-medium text-base mb-6">Digital Services</h3>
+              <h3 className="text-gray-900 font-medium text-base mb-6">Serviços Digitais</h3>
               <ul className="space-y-2">
                 <li>
                   <a
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/services/ai-mvp-development"
                   >
-                    AI MVP Development
+                    Desenvolvimento de MVP com IA
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -454,7 +454,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/services/high-converting-landing-pages"
                   >
-                    High-Converting Landing Pages
+                    Landing Pages de Alta Conversão
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -463,7 +463,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/services/ai-powered-app-development"
                   >
-                    AI-Powered App Development
+                    Desenvolvimento de Apps com IA
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -472,7 +472,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/services/custom-ai-tools"
                   >
-                    Custom AI Tools Development
+                    Desenvolvimento de Ferramentas de IA Personalizadas
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -481,21 +481,21 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/services/integrate-ai-existing-software"
                   >
-                    Integrate AI into Existing Software
+                    Integre IA em Software Existente
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="text-gray-900 font-medium text-base mb-6">Others</h3>
+              <h3 className="text-gray-900 font-medium text-base mb-6">Outros</h3>
               <ul className="space-y-2">
                 <li>
                   <a
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/media-coverage"
                   >
-                    Featured
+                    Destaques
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -504,7 +504,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/security"
                   >
-                    Security &amp; Compliance
+                    Segurança e Conformidade
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -513,7 +513,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/privacy"
                   >
-                    Privacy Policy
+                    Política de Privacidade
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -522,7 +522,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/terms"
                   >
-                    Terms &amp; Conditions
+                    Termos e Condições
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -531,7 +531,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/refund"
                   >
-                    Refund Policy
+                    Política de Reembolso
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -540,7 +540,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/fair-use-policy"
                   >
-                    Fair Use Policy
+                    Política de Uso Justo
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -549,7 +549,7 @@ export default function Footer() {
                     className="text-black hover:text-black transition-colors duration-200 text-base leading-6 text-left relative group"
                     href="/ethics-safety"
                   >
-                    Ethics &amp; Safety
+                    Ética e Segurança
                     <span className="absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-200 ease-in-out group-hover:w-full"></span>
                   </a>
                 </li>
@@ -558,7 +558,7 @@ export default function Footer() {
           </div>
           <div className="pt-4 border-t border-gray-200">
             <p className="text-gray-500 text-base text-center">
-              © 2026 SpeedMVPs Inc. All rights reserved.
+              © 2026 Welux. Software house de sites médicos de alta conversão.
             </p>
           </div>
         </div>

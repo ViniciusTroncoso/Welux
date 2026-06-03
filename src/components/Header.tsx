@@ -5,7 +5,7 @@ import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { LogoMark } from '@/components/icons';
 
-const NAV_LINKS = ['AI Services', 'Technology', 'Work', 'Hire', 'About'];
+const NAV_LINKS = ['Serviços', 'Tecnologia', 'Projetos', 'Contratar', 'Sobre'];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -46,7 +46,7 @@ export default function Header() {
                     'text-xl md:text-2xl font-medium leading-tight tracking-[0.03em]',
                     textColor
                   )}
-                  title="Welux – Sites médicos de alta conversão"
+                  title="Welux – Software House"
                 >
                   Welux
                 </span>
@@ -56,7 +56,7 @@ export default function Header() {
                     scrolled ? 'text-gray-500' : 'text-white/60'
                   )}
                 >
-                  Software House · Sites Médicos
+                  Software House
                 </span>
               </div>
             </button>
@@ -66,7 +66,7 @@ export default function Header() {
                 <button
                   key={label}
                   className={cn(
-                    'group text-base font-medium transition-all duration-200 tracking-wide hover:text-[#05d664]',
+                    'group text-base font-medium transition-all duration-200 tracking-wide hover:opacity-70',
                     textColor
                   )}
                 >
@@ -77,8 +77,8 @@ export default function Header() {
 
             <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6 lg:ml-8">
               <div className="hidden lg:block">
-                <button className="inline-flex items-center justify-center bg-[#05d664] hover:bg-transparent hover:border-[#05d664] border-2 border-[#05d664] text-black hover:text-[#05d664] uppercase font-medium text-[18px] sm:text-sm px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all duration-300">
-                  Book A Call
+                <button className="inline-flex items-center justify-center bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-[18px] sm:text-sm px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg">
+                  Agende uma Call
                 </button>
               </div>
 
@@ -105,13 +105,13 @@ export default function Header() {
               <button
                 key={label}
                 onClick={() => setMobileOpen(false)}
-                className="text-left text-base font-medium tracking-wide text-gray-900 transition-all duration-200 hover:text-[#05d664]"
+                className="text-left text-base font-medium tracking-wide text-gray-900 transition-all duration-200 hover:opacity-70"
               >
                 {label}
               </button>
             ))}
-            <button className="inline-flex items-center justify-center bg-[#05d664] hover:bg-transparent hover:border-[#05d664] border-2 border-[#05d664] text-black hover:text-[#05d664] uppercase font-medium text-sm px-6 py-2.5 rounded-lg transition-all duration-300">
-              Book A Call
+            <button className="inline-flex items-center justify-center bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-sm px-6 py-2.5 rounded-lg">
+              Agende uma Call
             </button>
           </div>
         </div>

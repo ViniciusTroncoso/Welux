@@ -15,9 +15,9 @@ const generalSans = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://speedmvps.com"),
-  title: "AI-Powered MVP Development | SpeedMVPs",
+  title: "Welux — Sites médicos de alta conversão",
   description:
-    "Launch a production-ready AI MVP in just 2-3 weeks. Our team blends rapid prototyping with enterprise-grade AI/ML engineering to validate your idea, attract investors, and win early customers.",
+    "Welux é a software house que constrói sites premium para clínicas e consultórios médicos captarem mais pacientes e aumentarem o faturamento.",
   icons: {
     icon: [
       { url: "/seo/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
   manifest: "/seo/site.webmanifest",
   openGraph: {
-    title: "AI-Powered MVP Development | SpeedMVPs",
+    title: "Welux — Sites médicos de alta conversão",
     description:
-      "Launch a production-ready AI MVP in just 2-3 weeks with enterprise-grade AI/ML engineering.",
+      "Sites médicos premium de alta conversão, entregues em 2-3 semanas.",
     images: ["/seo/og-image.jpg"],
   },
 };

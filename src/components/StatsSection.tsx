@@ -1,8 +1,8 @@
 const stats = [
-  { value: "50+", label: "AI/ML Engineers" },
-  { value: "95%", label: "Client Satisfaction Rate" },
-  { value: "2-3", label: "Weeks to MVP Launch" },
-  { value: "100+", label: "AI Projects Delivered" },
+  { value: "50+", label: "Engenheiros de IA/ML" },
+  { value: "95%", label: "Satisfação dos Clientes" },
+  { value: "2-3", label: "Semanas até o Lançamento do MVP" },
+  { value: "100+", label: "Projetos de IA Entregues" },
 ];
 
 export default function StatsSection() {

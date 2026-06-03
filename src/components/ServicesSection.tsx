@@ -18,44 +18,44 @@ type Service = {
 const services: Service[] = [
   {
     icon: Lightbulb,
-    title: "AI Strategy & Consultation",
+    title: "Estratégia e Consultoria em IA",
     description:
-      "Define your AI product vision, identify use cases, and create a roadmap aligned with business objectives",
+      "Defina a visão do seu produto de IA, identifique casos de uso e crie um roadmap alinhado aos objetivos de negócio",
     href: "/services/ai-strategy-&-consultation",
   },
   {
     icon: CodeXml,
-    title: "Custom AI Development",
+    title: "Desenvolvimento de IA Sob Medida",
     description:
-      "Build tailored AI solutions with machine learning models, LLM integrations, and intelligent automation",
+      "Construa soluções de IA personalizadas com modelos de machine learning, integrações de LLM e automação inteligente",
     href: "/services/custom-ai-development",
   },
   {
     icon: CircleCheckBig,
-    title: "Rapid MVP Prototyping",
+    title: "Prototipagem Rápida de MVP",
     description:
-      "Validate your AI concept quickly with a functional prototype to test market fit and gather feedback",
+      "Valide rapidamente seu conceito de IA com um protótipo funcional para testar o encaixe no mercado e coletar feedback",
     href: "/services/rapid-mvp-prototyping",
   },
   {
     icon: BrainCircuit,
-    title: "LLM & Generative AI",
+    title: "LLM e IA Generativa",
     description:
-      "Integrate GPT, Claude, and custom LLMs for chatbots, content generation, and intelligent assistants",
+      "Integre GPT, Claude e LLMs personalizados para chatbots, geração de conteúdo e assistentes inteligentes",
     href: "/services/llm-&-generative-ai",
   },
   {
     icon: Wrench,
-    title: "MLOps & Deployment",
+    title: "MLOps e Deploy",
     description:
-      "Set up automated pipelines, model monitoring, and scalable infrastructure for production AI systems",
+      "Configure pipelines automatizados, monitoramento de modelos e infraestrutura escalável para sistemas de IA em produção",
     href: "/services/mlops-&-deployment",
   },
   {
     icon: RefreshCw,
-    title: "AI Model Fine-tuning",
+    title: "Fine-tuning de Modelos de IA",
     description:
-      "Optimize pre-trained models for your specific use case to improve accuracy and performance",
+      "Otimize modelos pré-treinados para o seu caso de uso específico, melhorando a precisão e a performance",
     href: "/services/ai-model-fine-tuning",
   },
 ];
@@ -71,18 +71,18 @@ export default function ServicesSection() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-12 sm:mb-16">
           <div>
             <h2 className="text-[32px] sm:text-[36px] md:text-[40px] font-medium text-gray-900 mb-2 font-general-sans">
-              Our AI MVP Development Services
+              Nossos Serviços de Desenvolvimento de MVP com IA
             </h2>
             <p className="text-[18px] sm:text-lg md:text-xl font-normal text-gray-600 font-general-sans">
-              Comprehensive AI solutions to bring your vision to life
+              Soluções completas de IA para dar vida à sua visão
             </p>
           </div>
           <a
             aria-label="View All Services - View all AI development services"
-            className="inline-flex items-center justify-center px-4 sm:px-6 h-12 sm:h-auto sm:py-3 bg-black border border-black text-white text-base sm:text-lg font-medium rounded-lg hover:bg-transparent hover:border-[#05d664] hover:text-[#05d664] transition-colors duration-300 mt-2 whitespace-nowrap w-full sm:w-auto font-general-sans"
+            className="inline-flex items-center justify-center px-4 sm:px-6 h-12 sm:h-auto sm:py-3 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-colors duration-300 text-base sm:text-lg font-medium rounded-lg mt-2 whitespace-nowrap w-full sm:w-auto font-general-sans"
             href="/services"
           >
-            View All Services
+            Ver Todos os Serviços
           </a>
         </div>
         <div
@@ -107,9 +107,9 @@ export default function ServicesSection() {
                       aria-hidden="true"
                       className="flex-shrink-0 scale-110 sm:scale-100 group-hover:scale-110 transition-transform duration-300"
                     >
-                      <Icon className="w-12 h-12 text-green-500" />
+                      <Icon className="w-12 h-12 text-black" />
                     </div>
-                    <h3 className="text-[24px] sm:text-xl font-medium text-gray-900 group-hover:text-green-600 transition-colors duration-300 font-general-sans">
+                    <h3 className="text-[24px] sm:text-xl font-medium text-gray-900 group-hover:text-black transition-colors duration-300 font-general-sans">
                       {service.title}
                     </h3>
                   </div>
@@ -120,7 +120,7 @@ export default function ServicesSection() {
                     aria-hidden="true"
                     className="w-full h-[1px] bg-gray-200 relative overflow-hidden"
                   >
-                    <div className="absolute left-0 top-0 w-full h-full bg-green-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
+                    <div className="absolute left-0 top-0 w-full h-full bg-black origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
                   </div>
                 </a>
               </article>

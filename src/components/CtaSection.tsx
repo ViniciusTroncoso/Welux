@@ -8,16 +8,17 @@ export default function CtaSection() {
       <div className="relative z-10 flex flex-col items-center px-4 sm:px-6">
         <div className="text-center mb-12 max-w-3xl">
           <h3 className="text-[32px] sm:text-4xl lg:text-5xl font-medium leading-tight mb-4">
-            Ready to Build Your MVP?
+            Pronto para Construir seu MVP?
           </h3>
           <p className="text-[18px] sm:text-xl text-white/70 font-normal leading-relaxed">
-            Schedule a complimentary strategy session. Transform your concept
-            into a market-ready MVP within 2-3 weeks. Partner with us to
-            accelerate your product launch and scale your startup globally.
+            Agende uma sessão de estratégia gratuita. Transforme seu conceito em
+            um MVP pronto para o mercado em 2-3 semanas. Faça parceria conosco
+            para acelerar o lançamento do seu produto e escalar sua startup
+            globalmente.
           </p>
           <div className="mt-8 flex justify-center">
-            <button className="inline-flex items-center justify-center gap-2 bg-[#05d664] hover:bg-transparent hover:border-[#05d664] border-2 border-[#05d664] text-black hover:text-[#05d664] uppercase font-medium text-sm px-6 py-2.5 rounded-lg transition-all duration-300">
-              Book A Call
+            <button className="inline-flex items-center justify-center gap-2 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all duration-300 uppercase font-medium text-sm px-6 py-2.5 rounded-lg">
+              Agende uma Call
             </button>
           </div>
         </div>

@@ -6,45 +6,45 @@ import { cn } from '@/lib/utils';
 
 const faqs = [
   {
-    question: 'How long does it take to build an AI MVP?',
+    question: 'Quanto tempo leva para construir um MVP com IA?',
     answer:
-      'We can deliver a production-ready AI MVP in 2-3 weeks. The timeline depends on the complexity of your AI features, data requirements, and integration needs. We follow an agile approach to ensure rapid delivery without compromising quality.',
+      'Conseguimos entregar um MVP com IA pronto para produção em 2 a 3 semanas. O prazo depende da complexidade dos seus recursos de IA, dos requisitos de dados e das necessidades de integração. Seguimos uma abordagem ágil para garantir entrega rápida sem abrir mão da qualidade.',
   },
   {
-    question: 'What AI technologies do you work with?',
+    question: 'Com quais tecnologias de IA vocês trabalham?',
     answer:
-      'We specialize in modern AI technologies including OpenAI GPT, Claude, custom LLMs, TensorFlow, PyTorch, Hugging Face, LangChain, and various machine learning frameworks. We select the best technology stack based on your specific requirements.',
+      'Somos especializados em tecnologias modernas de IA, incluindo OpenAI GPT, Claude, LLMs personalizados, TensorFlow, PyTorch, Hugging Face, LangChain e diversos frameworks de machine learning. Selecionamos a melhor stack de tecnologia com base nos seus requisitos específicos.',
   },
   {
-    question: 'Do I need my own data to build an AI MVP?',
+    question: 'Preciso ter meus próprios dados para construir um MVP com IA?',
     answer:
-      'Not necessarily. We can work with pre-trained models, public datasets, or synthetic data for initial prototypes. However, having domain-specific data will significantly improve the AI’s performance and accuracy for your use case.',
+      'Não necessariamente. Podemos trabalhar com modelos pré-treinados, datasets públicos ou dados sintéticos para os protótipos iniciais. No entanto, ter dados específicos do seu domínio vai melhorar significativamente o desempenho e a precisão da IA para o seu caso de uso.',
   },
   {
-    question: 'How much does AI MVP development cost?',
+    question: 'Quanto custa o desenvolvimento de um MVP com IA?',
     answer:
-      'Costs vary based on complexity, features, and AI model requirements. A typical AI MVP ranges from $15,000 to $50,000. We offer transparent pricing and can provide a detailed estimate after understanding your specific needs.',
+      'Os custos variam conforme a complexidade, os recursos e os requisitos do modelo de IA. Um MVP com IA típico fica entre $15,000 e $50,000. Oferecemos preços transparentes e podemos fornecer uma estimativa detalhada depois de entender as suas necessidades específicas.',
   },
   {
-    question: 'Will I own the AI models and code?',
+    question: 'Serei o dono dos modelos de IA e do código?',
     answer:
-      'Yes, you will have full ownership of all custom code, models, and intellectual property we develop for your project. We provide complete source code, documentation, and deployment instructions.',
+      'Sim, você terá propriedade total de todo o código personalizado, modelos e propriedade intelectual que desenvolvermos para o seu projeto. Entregamos o código-fonte completo, a documentação e as instruções de deploy.',
   },
   {
     question:
-      'How is SpeedMVPs different from freelancers, generic agencies, or no-code tools?',
+      'Como a Welux se diferencia de freelancers, agências genéricas ou ferramentas no-code?',
     answer:
-      'Freelancers and generic agencies can write code, but they rarely specialize in AI/LLMs end-to-end—from data and models to UX, evaluation, and MLOps. No-code tools are fantastic for quick experiments but often break down when you need scale, complex workflows, or deep integrations. SpeedMVPs is an AI-native team: we ship production-ready AI MVPs in 2–3 weeks using modern stacks (Next.js, Node/Python, Vercel/AWS, OpenAI/Claude/Gemini, and open-source models), with clean architecture that your own engineers can extend later.',
+      'Freelancers e agências genéricas sabem escrever código, mas raramente são especializados em IA/LLMs de ponta a ponta — dos dados e modelos à UX, avaliação e MLOps. Ferramentas no-code são ótimas para experimentos rápidos, mas costumam falhar quando você precisa de escala, fluxos de trabalho complexos ou integrações profundas. A Welux é um time AI-native: entregamos MVPs com IA prontos para produção em 2 a 3 semanas usando stacks modernas (Next.js, Node/Python, Vercel/AWS, OpenAI/Claude/Gemini e modelos open-source), com uma arquitetura limpa que os seus próprios engenheiros podem expandir depois.',
   },
   {
-    question: 'Can you integrate models like ChatGPT, Claude, or Gemini into my MVP?',
+    question: 'Vocês conseguem integrar modelos como ChatGPT, Claude ou Gemini no meu MVP?',
     answer:
-      'Yes. We work daily with leading LLM providers including OpenAI (ChatGPT/GPT‑4), Anthropic (Claude), and Google (Gemini), as well as open‑source models when appropriate. We help you choose the right model for your use case, implement Retrieval Augmented Generation (RAG) over your private data, and design prompts, caching, and evaluation so your AI features are fast, safe, and cost‑effective.',
+      'Sim. Trabalhamos diariamente com os principais provedores de LLM, incluindo OpenAI (ChatGPT/GPT‑4), Anthropic (Claude) e Google (Gemini), além de modelos open‑source quando faz sentido. Ajudamos você a escolher o modelo certo para o seu caso de uso, implementar Retrieval Augmented Generation (RAG) sobre os seus dados privados e projetar prompts, caching e avaliação para que os seus recursos de IA sejam rápidos, seguros e econômicos.',
   },
   {
-    question: 'Will the AI MVP be ready for real users or just a demo?',
+    question: 'O MVP com IA estará pronto para usuários reais ou será só uma demo?',
     answer:
-      'Our goal is always a production‑ready MVP, not a throwaway demo. That means real authentication, basic role management, deployment pipelines, monitoring, and error handling in place. You should be comfortable inviting design partners, early customers, or internal teams to use the product as soon as we hand it over, while still having a clear roadmap for future iterations.',
+      'Nosso objetivo é sempre um MVP pronto para produção, não uma demo descartável. Isso significa autenticação real, gestão básica de permissões, pipelines de deploy, monitoramento e tratamento de erros em funcionamento. Você deve se sentir à vontade para convidar parceiros de design, primeiros clientes ou times internos a usar o produto assim que o entregarmos, mantendo ainda um roadmap claro para as próximas iterações.',
   },
 ];
 
@@ -55,7 +55,7 @@ export default function FaqSection() {
     <section className="bg-white py-20 px-4 sm:px-6" id="faq">
       <div className="max-w-4xl mx-auto">
         <h2 className="mb-3 sm:mb-4 text-[32px] sm:text-[36px] md:text-[40px] leading-snug font-general-sans font-medium text-gray-900">
-          AI MVP Development FAQ
+          Perguntas Frequentes sobre Desenvolvimento de MVP com IA
         </h2>
         <p className="text-gray-600 text-[18px] sm:text-lg mb-8 sm:mb-10 font-normal font-general-sans leading-7" />
         <div className="w-full max-w-4xl mx-auto">
@@ -74,7 +74,7 @@ export default function FaqSection() {
                     >
                       <span className="flex-1 text-left">{faq.question}</span>
                       <div className="flex-shrink-0 ml-4">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-500 flex items-center justify-center transition-colors duration-200">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black flex items-center justify-center transition-colors duration-200">
                           {open ? (
                             <Minus
                               className="w-5 h-5 sm:w-6 sm:h-6 text-white"

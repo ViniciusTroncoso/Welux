@@ -14,73 +14,73 @@ const products: Product[] = [
   {
     name: 'UseArticle',
     description:
-      'AI-powered content creation and management platform that helps teams produce high-quality articles at scale.',
+      'Plataforma de criação e gestão de conteúdo com IA que ajuda equipes a produzir artigos de alta qualidade em escala.',
     image: '/products/usearticle-product.webp',
   },
   {
     name: 'AgentHi',
     description:
-      'Intelligent virtual assistant that streamlines customer support and automates routine business tasks.',
+      'Assistente virtual inteligente que agiliza o suporte ao cliente e automatiza tarefas rotineiras do negócio.',
     image: '/products/agenthi-app.webp',
   },
   {
     name: 'StatsHub',
     description:
-      'Comprehensive analytics dashboard providing real-time insights and data visualization for businesses.',
+      'Dashboard de análise completo que oferece insights em tempo real e visualização de dados para empresas.',
     image: '/products/statshub-product.webp',
   },
   {
     name: 'Harimaxx',
     description:
-      'Personal fitness companion with AI-driven workout plans and nutrition tracking for optimal health.',
+      'Companheiro pessoal de fitness com planos de treino guiados por IA e acompanhamento nutricional para uma saúde ideal.',
     image: '/products/harimaxx-app.webp',
   },
   {
     name: 'Vaga',
     description:
-      'Smart travel planning app that curates personalized itineraries and local experiences.',
+      'App inteligente de planejamento de viagens que monta roteiros personalizados e experiências locais.',
     image: '/products/vaga-product.webp',
   },
   {
     name: 'FoodScan',
     description:
-      'Nutrition analysis app that scans food items and provides detailed nutritional information instantly.',
+      'App de análise nutricional que escaneia alimentos e fornece informações nutricionais detalhadas instantaneamente.',
     image: '/products/foodscan-app.webp',
   },
   {
     name: 'MyJobReach',
     description:
-      'Job matching platform connecting talented professionals with their dream opportunities.',
+      'Plataforma de match de vagas que conecta profissionais talentosos às oportunidades dos seus sonhos.',
     image: '/products/myjobreach-product.webp',
   },
   {
     name: 'TravelGram',
     description:
-      'Social platform for travelers to share experiences, discover destinations, and connect globally.',
+      'Plataforma social para viajantes compartilharem experiências, descobrirem destinos e se conectarem pelo mundo.',
     image: '/products/travelgram-app.webp',
   },
   {
     name: 'SuperStatz',
     description:
-      'Advanced sports statistics platform delivering in-depth analysis and performance metrics.',
+      'Plataforma avançada de estatísticas esportivas que entrega análises aprofundadas e métricas de desempenho.',
     image: '/products/superstatz-product.webp',
   },
   {
     name: 'Cashbook',
     description:
-      'Simple expense tracking and budgeting app that helps users manage their finances effortlessly.',
+      'App simples de controle de despesas e orçamento que ajuda os usuários a gerenciar suas finanças sem esforço.',
     image: '/products/cashbook-app.webp',
   },
   {
     name: 'TypeFast',
     description:
-      'Typing speed improvement platform with gamified lessons and real-time performance tracking.',
+      'Plataforma para melhorar a velocidade de digitação com lições gamificadas e acompanhamento de desempenho em tempo real.',
     image: '/products/typefast-product.webp',
   },
   {
     name: 'Easy Loan',
     description:
-      'Streamlined loan management system that simplifies borrowing and lending processes.',
+      'Sistema simplificado de gestão de empréstimos que descomplica os processos de tomada e concessão de crédito.',
     image: '/products/loanbook-app.webp',
   },
 ];
@@ -97,17 +97,18 @@ export default function PortfolioSection() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-10 sm:mb-16">
           <div>
             <h2 className="text-[32px] sm:text-[36px] md:text-[40px] font-medium text-gray-900 mb-2 font-general-sans">
-              Portfolio: AI Products Built for Global Startups
+              Portfólio: Produtos de IA Construídos para Startups Globais
             </h2>
             <p className="text-[18px] sm:text-lg md:text-xl font-normal text-gray-600 font-general-sans">
-              From content platforms and AI assistants to analytics dashboards and
-              fintech solutions—see how we&apos;ve transformed ideas into
-              production-ready MVPs in 2-3 weeks across diverse industries. Each
-              product launched successfully, serving users globally.
+              De plataformas de conteúdo e assistentes de IA a dashboards de
+              análise e soluções fintech—veja como transformamos ideias em MVPs
+              prontos para produção em 2 a 3 semanas nos mais diversos setores.
+              Cada produto foi lançado com sucesso, atendendo usuários no mundo
+              todo.
             </p>
           </div>
-          <button className="hidden sm:inline-flex items-center px-6 py-3 bg-black border border-black text-white font-medium rounded-lg hover:bg-transparent hover:border-[#05d664] hover:text-[#05d664] transition-colors duration-300 whitespace-nowrap font-general-sans">
-            View All Work
+          <button className="hidden sm:inline-flex items-center px-6 py-3 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-colors duration-300 font-medium rounded-lg whitespace-nowrap font-general-sans">
+            Ver Todos os Projetos
           </button>
         </div>
 
@@ -154,7 +155,7 @@ export default function PortfolioSection() {
                   <span
                     className={cn(
                       'rounded-full transition-all duration-300',
-                      i === active ? 'w-6 h-2 bg-[#05d664]' : 'w-2 h-2 bg-gray-300'
+                      i === active ? 'w-6 h-2 bg-black' : 'w-2 h-2 bg-gray-300'
                     )}
                   />
                 </button>
