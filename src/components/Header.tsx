@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { LogoMark } from '@/components/icons';
 
 const NAV_LINKS = ['AI Services', 'Technology', 'Work', 'Hire', 'About'];
 
@@ -35,10 +36,9 @@ export default function Header() {
               aria-label="Go to home and scroll to top"
               className="flex items-center gap-3 focus:outline-none"
             >
-              <img
-                alt="SpeedMVPS Logo"
-                className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14"
-                src="/logo-32.png"
+              <LogoMark
+                aria-label="Welux Logo"
+                className={cn('flex-shrink-0 w-11 h-11 md:w-12 md:h-12', textColor)}
               />
               <div className="flex flex-col items-start notranslate">
                 <span
@@ -46,17 +46,17 @@ export default function Header() {
                     'text-xl md:text-2xl font-medium leading-tight tracking-[0.03em]',
                     textColor
                   )}
-                  title="SpeedMVPs – AI MVP Development Agency"
+                  title="Welux – Sites médicos de alta conversão"
                 >
-                  SpeedMVPs
+                  Welux
                 </span>
                 <span
                   className={cn(
-                    'w-full text-end text-[18px] sm:text-[18px] md:text-[18px] font-normal mt-0.6 hidden md:flex md:mt-[-4px]',
-                    textColor
+                    'w-full text-end text-[13px] font-normal tracking-[0.16em] uppercase mt-0.6 hidden md:flex md:mt-[-2px]',
+                    scrolled ? 'text-gray-500' : 'text-white/60'
                   )}
                 >
-                  Powered by Speed AI Labs
+                  Software House · Sites Médicos
                 </span>
               </div>
             </button>

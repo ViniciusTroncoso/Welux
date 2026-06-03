@@ -1,4 +1,5 @@
 import { Mail, Phone } from 'lucide-react';
+import { LogoMark } from '@/components/icons';
 
 export default function Footer() {
   return (
@@ -8,30 +9,24 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row justify-between lg:items-start gap-8 mb-12">
             <div className="max-w-sm">
               <div className="flex items-center gap-3 mb-3">
-                <img
-                  alt="SpeedMVPs Logo"
-                  className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14"
-                  decoding="async"
-                  height="48"
-                  loading="lazy"
-                  src="/logo-32.png"
-                  style={{ color: 'transparent' }}
-                  width="48"
+                <LogoMark
+                  aria-label="Welux Logo"
+                  className="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 text-gray-900"
                 />
                 <div className="flex flex-col items-start notranslate">
                   <span
                     className="text-gray-900 text-xl md:text-2xl font-medium leading-tight tracking-[0.03em]"
-                    title="SpeedMVPs – AI MVP Development Agency"
+                    title="Welux – Sites médicos de alta conversão"
                   >
-                    SpeedMVPs
+                    Welux
                   </span>
-                  <span className="text-gray-600 w-full text-end text-[18px] sm:text-[18px] md:text-[18px] font-normal mt-0.6 hidden md:flex md:mt-[-4px]">
-                    Powered by Speed AI Labs
+                  <span className="text-gray-500 w-full text-end text-[13px] font-normal tracking-[0.16em] uppercase mt-0.6 hidden md:flex md:mt-[-2px]">
+                    Software House · Sites Médicos
                   </span>
                 </div>
               </div>
               <p className="text-black text-lg md:text-xl font-normal leading-8 mb-4">
-                AI Idea Turn into reality in 2-3 weeks.
+                Sites médicos de alta conversão em 2-3 semanas.
               </p>
             </div>
             <div className="w-full lg:max-w-lg">

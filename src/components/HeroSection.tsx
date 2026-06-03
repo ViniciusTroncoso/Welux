@@ -43,7 +43,7 @@ export default function HeroSection() {
           </div>
           <div className="relative flex items-center justify-center lg:justify-end order-1 lg:order-2 mt-8 lg:mt-0">
             <div className="relative z-10 flex items-center justify-center">
-              <LogoMark className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96" />
+              <LogoMark className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 text-white" />
             </div>
           </div>
         </div>
