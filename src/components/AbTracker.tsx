@@ -22,6 +22,8 @@ function send(event: "exposure" | "conversion") {
 /** Fires an exposure once per session and a conversion when a [data-ab-cta] element is clicked. */
 export default function AbTracker() {
   useEffect(() => {
+    // Only track the A/B homepage (variant B). Utility pages like /ab-stats must not log exposures.
+    if (window.location.pathname !== "/") return;
     try {
       if (!sessionStorage.getItem("ab-exposed")) {
         sessionStorage.setItem("ab-exposed", "1");
